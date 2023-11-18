@@ -44,45 +44,49 @@ const FormRegisterUser = () => {
         }, 400);
       }}
     >
-      <Form className="flex max-w-lg flex-col gap-4 mx-auto">
+      <Form className="flex max-w-lg flex-col gap-4 mx-auto mb-10">
         <div>
-          <Label htmlFor="name" value="Nome" />
+          <Label htmlFor="name" value="Nome" className="text-white" />
           <Field
             type="text"
             name="name"
             id="name"
             placeholder="Inserisci il tuo Nome"
-            className="shadow-sm bg-gray-50/10 hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           />
           <ErrorMessage name="name" component="div" />
         </div>
 
         <div>
-          <Label htmlFor="lastName" value="Cognome" />
+          <Label className="text-white" htmlFor="lastName" value="Cognome" />
           <Field
             type="text"
             name="lastName"
             id="lastName"
             placeholder="Inserisci il tuo Cognome"
-            className="shadow-sm bg-gray-50/10 hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           />
           <ErrorMessage name="lastName" component="div" />
         </div>
 
         <div>
-          <Label htmlFor="alias" value="Alias" />
+          <Label className="text-white" htmlFor="alias" value="Alias" />
           <Field
             type="text"
             name="alias"
             id="alias"
             placeholder="Inserisci il tuo Alias"
-            className="shadow-sm bg-gray-50/10 hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           />
           <ErrorMessage name="lastName" component="div" />
         </div>
 
         <div>
-          <Label htmlFor="email" value="Inserisci la tua mail" />
+          <Label
+            className="text-white"
+            htmlFor="email"
+            value="Inserisci la tua mail"
+          />
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
               <svg
@@ -101,38 +105,45 @@ const FormRegisterUser = () => {
               name="email"
               id="email"
               placeholder="Inserisci l'indirizzo email"
-              className="bg-gray-50/10 hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
             />
           </div>
           <ErrorMessage name="email" component="div" />
         </div>
 
         <div>
-          <Label htmlFor="password" value="Inserisci la tua password" />
+          <Label
+            className="text-white"
+            htmlFor="password"
+            value="Inserisci la tua password"
+          />
           <Field
             type="password"
             name="password"
             id="password"
             placeholder="Inserisci la password"
-            className="shadow-sm bg-gray-50/10 hover:bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           />
           <ErrorMessage name="password" component="div" />
         </div>
 
         <div>
-          <Label htmlFor="confirmPassword" value="Conferma la tua password" />
+          <Label
+            className="text-white"
+            htmlFor="confirmPassword"
+            value="Conferma la tua password"
+          />
           <Field
             type="password"
             name="confirmPassword"
             id="confirmPassword"
             placeholder="Conferma la password"
-            className="shadow-sm bg-gray-50/10 hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           />
-          <ErrorMessage name="confirmPassword" component="div" />
         </div>
         <Button
           type="submit"
-          className="w-full mt-2 text-white bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 hover:bg-violet-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="w-full text-white bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 hover:bg-violet-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Register new account
         </Button>

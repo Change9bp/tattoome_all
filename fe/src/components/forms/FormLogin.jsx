@@ -30,9 +30,13 @@ const FormLogin = () => {
         loginUser(values);
       }}
     >
-      <Form className="flex max-w-lg flex-col gap-4 mx-auto">
+      <Form className="flex max-w-lg flex-col gap-4 mx-auto mb-10">
         <div>
-          <Label htmlFor="email" value="Inserisci la tua mail" />
+          <Label
+            htmlFor="email"
+            value="Inserisci la tua mail"
+            className="text-white"
+          />
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
               <svg
@@ -51,22 +55,30 @@ const FormLogin = () => {
               name="email"
               id="email"
               placeholder="Inserisci l'indirizzo email"
-              className="bg-gray-50/10 hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
             />
           </div>
-          <ErrorMessage name="email" component="div" />
+          <ErrorMessage className="text-red-500" name="email" component="div" />
         </div>
 
         <div>
-          <Label htmlFor="password" value="Inserisci la tua password" />
+          <Label
+            htmlFor="password"
+            value="Inserisci la tua password"
+            className="text-white"
+          />
           <Field
             type="password"
             name="password"
             id="password"
             placeholder="Inserisci la password"
-            className="shadow-sm bg-gray-50/10 hover:bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           />
-          <ErrorMessage name="password" component="div" />
+          <ErrorMessage
+            className="text-red-500"
+            name="password"
+            component="div"
+          />
         </div>
         <Button
           type="submit"
