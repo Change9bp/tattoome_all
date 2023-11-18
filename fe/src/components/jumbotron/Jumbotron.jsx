@@ -8,7 +8,7 @@ const Jumbotron = () => {
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white text-white lg:text-black">
             La più grande community italiana sui Tattoo
           </h1>
-          <p className="max-w-2xl mb-6 font-light text-white lg:text-black lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+          <p className="max-w-2xl mb-6 text-stone-200 font-normal lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
             Cerca il tuo artista preferito, esplora, commenta, prenota.
           </p>
           <p className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white lg:text-black rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">

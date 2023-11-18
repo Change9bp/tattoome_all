@@ -7,7 +7,7 @@ import { GlobalProvider } from "../../context/getContext";
 import { styles, nation, region, city } from "../../data/tabelleDropdown";
 
 const FormBecomeCreator = () => {
-  const { alert, setAlert, creatorUpdate } = useContext(GlobalProvider);
+  const { alert, creatorUpdate } = useContext(GlobalProvider);
 
   return (
     <Formik

@@ -3,7 +3,7 @@ import { GlobalProvider } from "../../context/getContext";
 import CardBlog from "../cardBlog/CardBlog";
 
 const Portfolio = ({ id }) => {
-  const { getTattooPostsForCreator, tattooPostsForCreator } =
+  const { getTattooPostsForCreator, tattooPostsForCreator, alert } =
     useContext(GlobalProvider);
 
   useEffect(() => {
@@ -30,17 +30,24 @@ const Portfolio = ({ id }) => {
     // Ora chunkedImages è un array di gruppi di immagini, ciascuno contenente circa idealGroupSize immagini}
 
     return (
-      <div class="max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-        {chunkedImages.map((chunk, chunkIndex) => (
-          <div key={chunkIndex} class="grid gap-4">
-            Ciaooo
-            {chunk.map((singlePost, imageIndex) => (
-              // <CardBlog key={imageIndex} {...singlePost} />
-              <div>ciaooooo</div>
-            ))}
-          </div>
-        ))}
-      </div>
+      <>
+        {alert && (
+          <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
+            {alert}
+          </h5>
+        )}
+        <div class="max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+          {chunkedImages.map((chunk, chunkIndex) => (
+            <div key={chunkIndex} class="grid gap-4">
+              Ciaooo
+              {chunk.map((singlePost, imageIndex) => (
+                // <CardBlog key={imageIndex} {...singlePost} />
+                <div>ciaooooo</div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </>
       // <div class=" grid grid-cols-2 md:grid-cols-4 gap-4">
       //   <div class="grid gap-4">
       //     <div>

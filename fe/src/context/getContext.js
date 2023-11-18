@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const GlobalProvider = createContext();
 
 const GlobalContext = ({ children }) => {
+  const [register, setRegister] = useState(false);
   const [tattooPosts, setTattooPosts] = useState([]);
   const [tattooPostsForCreator, setTattooPostsForCreator] = useState([]);
   const [creatorList, setCreatorList] = useState([]);
@@ -45,6 +46,10 @@ const GlobalContext = ({ children }) => {
       setCreatorList(response.data.userCreators);
     } catch (error) {
       console.log(error.response);
+      setAlert("Non è stato possibile ottenere la lista dei Creator!");
+      setTimeout(() => {
+        setAlert("");
+      }, 3000);
     }
   };
 
@@ -60,8 +65,6 @@ const GlobalContext = ({ children }) => {
     }*/
       );
       console.log(response.data.userCreator, "single creator");
-      // setInfoSingleCreator(response.data.userCreator);
-      // return response.data.userCreator;
       setInfoSingleCreator(response.data.userCreator);
     } catch (error) {
       console.log(error.response);
@@ -81,8 +84,21 @@ const GlobalContext = ({ children }) => {
       }*/
       );
       console.log(response);
+      if (response.status === 200 && response.statusText === "OK") {
+        setAlert(
+          "Complimenti ti sei registrato correttamente alla piattaforma!"
+        );
+        setTimeout(() => {
+          setAlert("");
+          setRegister(!register);
+        }, 3000);
+      }
     } catch (error) {
       console.error("errore", error.response);
+      setAlert("Non è stato possibile registrarsi alla piattaforma!");
+      setTimeout(() => {
+        setAlert("");
+      }, 3000);
     }
   };
 
@@ -130,6 +146,10 @@ const GlobalContext = ({ children }) => {
       setTattooPosts(response.data);
     } catch (error) {
       console.log(error.response);
+      setAlert("Non e' stato possibile recuperare i post dalla piattaforma.");
+      setTimeout(() => {
+        setAlert("");
+      }, 3000);
     }
   };
 
@@ -152,6 +172,10 @@ const GlobalContext = ({ children }) => {
       );
     } catch (error) {
       console.log(error.response);
+      setAlert("Non e' stato possibile recuperare i post dalla piattaforma.");
+      setTimeout(() => {
+        setAlert("");
+      }, 3000);
     }
   };
 
@@ -223,6 +247,8 @@ const GlobalContext = ({ children }) => {
         setAlert,
         setTattooPostsForCreator,
         creatorUpdate,
+        register,
+        setRegister,
       }}
     >
       {children}

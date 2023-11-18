@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import FormLogin from "../forms/FormLogin";
 import FormRegisterUser from "../forms/FormRegisterUser";
 import { Button } from "flowbite-react";
+import { GlobalProvider } from "../../context/getContext";
 
 const Welcome = () => {
-  const [register, setRegister] = useState(false);
+  const { register, setRegister } = useContext(GlobalProvider);
 
   return (
     <section className="absolute z-10 top-0 w-full min-h-screen bg-transparent flex justify-center items-center">
@@ -15,8 +16,8 @@ const Welcome = () => {
               TATTOOME
             </h1>
             <div className="w-full flex justify-center gap-4">
-              <Button onClick={() => setRegister(false)}>Login</Button>
-              <Button onClick={() => setRegister(true)}>Register</Button>
+              <Button onClick={() => setRegister(!register)}>Login</Button>
+              <Button onClick={() => setRegister(!register)}>Register</Button>
             </div>
           </div>
 

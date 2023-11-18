@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { GlobalProvider } from "../../context/getContext";
 
 const FormRegisterUser = () => {
-  const { registerUser } = useContext(GlobalProvider);
+  const { registerUser, alert } = useContext(GlobalProvider);
 
   return (
     <Formik
@@ -36,14 +36,15 @@ const FormRegisterUser = () => {
           .required("Conferma password è obbligatoria"),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        // newPost(values);
         registerUser(values);
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
       }}
     >
+      {alert && (
+        <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
+          {alert}
+        </h5>
+      )}
+
       <Form className="flex max-w-lg flex-col gap-4 mx-auto mb-10">
         <div>
           <Label htmlFor="name" value="Nome" className="text-white" />

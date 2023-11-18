@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const { Console } = require("console");
 require("dotenv").config();
 
 //MANCANO I VALIDATOR, VALIDATOR USER VALIDATOR VERIFYTOKEN
@@ -106,6 +107,53 @@ userCreator.get("/userCreator/:_id", async (req, res) => {
       statusCode: 500,
       message: "Server internal error",
     });
+  }
+});
+
+// ROTTA CON QUERY RICERCA USER CREATOR
+
+userCreator.post("/userCreator/search", async (req, res) => {
+  try {
+    // Estrai i parametri di ricerca dalla query
+    const { nation, region, city, tattooStyle } = req.body;
+
+    // Costruisci la query Mongoose in base ai parametri ricevuti
+    const query = {};
+
+    if (nation) {
+      query.nation = nation;
+    }
+
+    if (region) {
+      query.region = region;
+    }
+
+    if (city) {
+      query.city = city;
+    }
+
+    if (tattooStyle && tattooStyle.length > 0) {
+      query.tattooStyle = {
+        $elemMatch: {
+          value: { $in: tattooStyle.map((style) => style.value) },
+        },
+      };
+    }
+
+    console.log("la mia req", req.body);
+    console.log("la mia req", query);
+    // Esegui la query nel database
+    const results = await UserCreatorModel.find(query);
+
+    // Invia i risultati al frontend
+    // res.json(results);
+    res.status(200).send({
+      statusCode: 200,
+      results,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Errore nella query del database" });
   }
 });
 
