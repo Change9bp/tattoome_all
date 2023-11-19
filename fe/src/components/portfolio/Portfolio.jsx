@@ -36,7 +36,7 @@ const Portfolio = ({ id }) => {
             {alert}
           </h5>
         )}
-        <div class="max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           {chunkedImages.map((chunk, chunkIndex) => (
             <div key={chunkIndex} class="grid gap-4">
               Ciaooo

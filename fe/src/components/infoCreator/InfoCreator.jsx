@@ -37,14 +37,14 @@ const InfoCreator = ({ id }) => {
   }, [infoSingleCreator]);
 
   return (
-    <div className="mt-8 max-w-xs sm:max-w-sm md:max-w-screen-sm lg:max-w-screen-lg mx-auto flex flex-col bg-white border border-gray-200 rounded-xl shadow lg:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <div className="mt-8 max-w-xs sm:max-w-sm md:max-w-screen-sm lg:max-w-screen-lg mx-auto flex flex-col bg-white border border-gray-200 rounded-3xl shadow lg:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <img
-        className="object-cover w-full lg:w-1/2 rounded-t-xl h-full lg:rounded-l-xl lg:rounded-r-none"
+        className="object-cover w-full lg:w-1/2 rounded-t-3xl h-full lg:rounded-l-3xl lg:rounded-r-none"
         src={avatar}
         alt="CREATOR IMAGE"
       />
 
-      <div className="bg-gray-50 flex flex-col w-full lg:w-1/2 justify-between p-4 leading-normal">
+      <div className="bg-gray-50 rounded-3xl flex flex-col w-full lg:w-1/2 justify-between p-4 leading-normal">
         <h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white">
           Informazioni{" "}
           <mark class="px-2 text-white bg-slate-500 rounded dark:bg-slate-500">

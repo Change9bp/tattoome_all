@@ -115,14 +115,10 @@ userCreator.get("/userCreator/:_id", async (req, res) => {
 userCreator.post("/userCreator/search", async (req, res) => {
   try {
     // Estrai i parametri di ricerca dalla query
-    const { nation, region, city, tattooStyle } = req.body;
+    const { region, city, tattooStyle } = req.body;
 
     // Costruisci la query Mongoose in base ai parametri ricevuti
     const query = {};
-
-    if (nation) {
-      query.nation = nation;
-    }
 
     if (region) {
       query.region = region;

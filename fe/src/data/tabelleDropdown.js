@@ -114,3 +114,8 @@ export const city = [
   { value: "Prato", label: "Prato" },
   { value: "Modena", label: "Modena" },
 ];
+
+export const who = [
+  { value: "Post", label: "Post" },
+  { value: "Creator", label: "Creator" },
+];

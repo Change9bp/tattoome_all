@@ -5,11 +5,16 @@ import { useNavigate } from "react-router-dom";
 export const GlobalProvider = createContext();
 
 const GlobalContext = ({ children }) => {
+  const [selected, setSelected] = useState("");
   const [register, setRegister] = useState(false);
   const [tattooPosts, setTattooPosts] = useState([]);
   const [tattooPostsForCreator, setTattooPostsForCreator] = useState([]);
   const [creatorList, setCreatorList] = useState([]);
   const [infoSingleCreator, setInfoSingleCreator] = useState({});
+  const [listPost, setListPost] = useState([]);
+  const [filteredPost, setFilteredPost] = useState(null);
+  const [listCreator, setListCreator] = useState([]);
+  const [filteredCreator, setFilteredCreator] = useState([]);
   const [alert, setAlert] = useState("");
   const [dataUser, setDataUser] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -227,6 +232,8 @@ const GlobalContext = ({ children }) => {
   return (
     <GlobalProvider.Provider
       value={{
+        selected,
+        setSelected,
         registerUser,
         loginUser,
         getTattooPosts,
@@ -249,6 +256,14 @@ const GlobalContext = ({ children }) => {
         creatorUpdate,
         register,
         setRegister,
+        listPost,
+        setListPost,
+        filteredPost,
+        setFilteredPost,
+        listCreator,
+        setListCreator,
+        filteredCreator,
+        setFilteredCreator,
       }}
     >
       {children}

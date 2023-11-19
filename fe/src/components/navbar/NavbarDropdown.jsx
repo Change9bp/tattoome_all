@@ -18,7 +18,7 @@ const NavbarDropdown = () => {
 
   return (
     <div className="z-20 top-0 left-0 shadow-sm sticky">
-      <Navbar fluid rounded className="max-w-screen-xl mx-auto">
+      <Navbar fluid rounded className="max-w-screen-2xl mx-auto">
         <Link to={"/home"}>
           <Navbar.Brand>
             <Avatar

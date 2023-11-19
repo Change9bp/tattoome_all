@@ -7,7 +7,7 @@ const Login = () => {
       <video
         className="z-0 object-cover w-full h-full"
         controls=""
-        autoplay=""
+        autoPlay
         loop
         preload="auto"
         muted

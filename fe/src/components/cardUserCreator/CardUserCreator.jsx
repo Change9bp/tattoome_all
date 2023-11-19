@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 const CardUserCreator = ({ _id, name, lastName, avatar, role }) => {
   return (
-    <div className="flex rounded-2xl border border-gray-200 bg-white shadow-md flex-col relative p-0">
+    <div className="flex rounded-3xl border border-gray-200 bg-white shadow-md flex-col relative p-0">
       <div className="flex flex-col items-center relative group">
         <img
           alt="Bonnie image"
-          class="aspect-square h-auto w-full object-cover transition-all duration-300 rounded-2xl"
+          class="aspect-square h-auto w-full object-cover transition-all duration-300 rounded-3xl"
           src={avatar}
         />
-        <div className="flex flex-col items-center rounded-2xl absolute inset-0 bg-black bg-opacity-50 justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
+        <div className="flex flex-col items-center rounded-3xl absolute inset-0 bg-black bg-opacity-50 justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
           <h5 className="mb-1 text-xl font-medium text-white">
             {name} {lastName}
           </h5>

@@ -161,6 +161,37 @@ tattooPost.post(
   }
 );
 
+//ROTTA CON QUERY RICERCA POST
+
+tattooPost.post("/tattooPost/search", async (req, res) => {
+  try {
+    // Estrai i parametri di ricerca dalla query
+    const { tattooStyle } = req.body;
+
+    // Costruisci la query Mongoose in base ai parametri ricevuti
+    const query = {};
+
+    if (tattooStyle && tattooStyle.length > 0) {
+      query.tattooStyle = {
+        $elemMatch: {
+          value: { $in: tattooStyle.map((style) => style.value) },
+        },
+      };
+    }
+
+    // Esegui la query nel database
+    const results = await PostModel.find(query);
+
+    res.status(200).send({
+      statusCode: 200,
+      results,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Errore nella query del database" });
+  }
+});
+
 //PATCH
 
 tattooPost.patch(

@@ -22,7 +22,7 @@ const AuthorPage = () => {
   return (
     <>
       <NavbarDropdown />
-      <main className="max-w-screen-xl mx-auto py-8 px-4 ">
+      <main className="max-w-screen-2xl mx-auto py-8 px-4 ">
         <div className="flex flex-col justify-center items-center">
           <div>
             <img

@@ -10,7 +10,7 @@ const Welcome = () => {
   return (
     <section className="absolute z-10 top-0 w-full min-h-screen bg-transparent flex justify-center items-center">
       <div className="w-4/5  flex justify-center items-center">
-        <div className="w-full lg:w-1/2 bg-gray-800/20 rounded-xl">
+        <div className="w-full lg:w-1/2 bg-gray-800/20 rounded-3xl">
           <div className="flex flex-col justify-center items-center">
             <h1 className="text-4xl font-extrabold text-slate-100 text-center my-6">
               TATTOOME
