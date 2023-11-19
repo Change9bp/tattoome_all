@@ -3,7 +3,7 @@ import React from "react";
 const Jumbotron = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
-      <div className="lg:grid max-w-screen-xl px-4 py-4 mx-auto gap-0 lg:py-8 lg:grid-cols-12 ">
+      <div className="rounded-3xl lg:grid max-w-screen-xl px-4 py-4 mx-auto gap-0 lg:py-8 lg:grid-cols-12 ">
         <div className="py-20 px-4 rounded-3xl mr-auto place-self-center lg:col-span-7 bg-blend-multiply bg-no-repeat bg-cover bg-center bg-slate-500 bg-[url('https://images.pexels.com/photos/5490263/pexels-photo-5490263.jpeg')] lg:bg-none ">
           <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white text-white lg:text-black">
             La più grande community italiana sui Tattoo

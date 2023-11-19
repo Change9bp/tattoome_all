@@ -72,14 +72,6 @@ const UserCreatorSchema = new mongoose.Schema(
       default: Date.now,
     },
 
-    /* likes: {
-      type: Array,
-      required: false,
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "UserCreatorModel",
-      },
-    },*/
     likes: [
       {
         user: {
@@ -92,6 +84,8 @@ const UserCreatorSchema = new mongoose.Schema(
         },
       },
     ],
+
+    views: { type: Number, default: 0 },
   },
   { timestamps: true, strict: true }
 );

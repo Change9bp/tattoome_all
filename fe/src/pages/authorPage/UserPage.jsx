@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavbarDropdown from "../../components/navbar/NavbarDropdown";
 import { Rating, Button } from "flowbite-react";
 import { VscEdit } from "react-icons/vsc";
@@ -11,10 +11,15 @@ import { GlobalProvider } from "../../context/getContext";
 import FooterGlobal from "../../components/footer/FooterGlobal";
 
 const UserPage = () => {
-  const { infoSingleCreator } = useContext(GlobalProvider);
-  const { name, lastName, avatar, role, email } = infoSingleCreator;
+  const { infoSingleCreator, getInfoSingleCreator, dataUser } =
+    useContext(GlobalProvider);
+  const { name, lastName, avatar, role, views } = infoSingleCreator;
   const [modify, setModify] = useState(false);
   const [creator, setCreator] = useState(false);
+
+  useEffect(() => {
+    getInfoSingleCreator(dataUser.id);
+  }, []);
 
   return (
     <>
@@ -80,7 +85,7 @@ const UserPage = () => {
               <p className="text-center text-md font-semibold dark:text-white mb-2">
                 Visualizzazioni totali
               </p>
-              <p>0</p>
+              <p>{views}</p>
             </div>
             <div className="flex flex-col items-center truncate">
               <p className="text-center text-md font-semibold dark:text-white mb-2">

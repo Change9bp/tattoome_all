@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InfoCreator from "../../components/infoCreator/InfoCreator";
 import NavbarDropdown from "../../components/navbar/NavbarDropdown";
 import { Button } from "flowbite-react";
@@ -7,12 +7,28 @@ import FlashTattoo from "../../components/flashTattoo/FlashTattoo";
 import Calendar from "../../components/calendar/Calendar";
 import { useParams } from "react-router-dom";
 import FooterGlobal from "../../components/footer/FooterGlobal";
+import axios from "axios";
 
 const CreatorPage = () => {
   const [portfolio, setPortfolio] = useState(false);
   const [flash, setFlash] = useState(false);
   const [booking, setBooking] = useState(false);
   const { id } = useParams();
+
+  useEffect(() => {
+    addViews();
+  }, []);
+
+  const addViews = async () => {
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}/views`
+      );
+      console.log();
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <>

@@ -6,15 +6,20 @@ import { Link } from "react-router-dom";
 import { GlobalProvider } from "../../context/getContext";
 import axios from "axios";
 
-const NavbarModal = ({ author, _id, likes }) => {
+const NavbarModal = ({ author, _id }) => {
   const { dataUser } = useContext(GlobalProvider);
-  const [liked, setLiked] = useState(null);
+  const [liked, setLiked] = useState(false);
+  const [newDataPost, setNewDataPost] = useState([]);
 
   useEffect(() => {
-    const result = likes.some((like) => like.user === dataUser.id);
+    ottieniILike();
+  }, [liked]);
+
+  useEffect(() => {
+    const result = newDataPost.some((like) => like.user === dataUser.id);
+    console.log("quale è il dato di result?", result);
     setLiked(result);
-    console.log("liked è true oo false?", result);
-  }, [likes]);
+  }, [newDataPost]);
 
   //like rotta
   const likeIt = async () => {
@@ -22,10 +27,19 @@ const NavbarModal = ({ author, _id, likes }) => {
       const response = await axios.patch(
         `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${_id}/like/${dataUser.id}`
       );
-      console.log("la res del like", response);
+      ottieniILike();
     } catch (error) {
       console.log(error.response);
     }
+  };
+
+  //ottengo array like
+  const ottieniILike = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${_id}`
+    );
+    setNewDataPost(response.data.post.likes);
+    console.log("cosa ho salvato in new data post", response.data.post.likes);
   };
 
   return (
@@ -53,13 +67,24 @@ const NavbarModal = ({ author, _id, likes }) => {
 
       <div className="flex md:order-2">
         <Button.Group>
+          <Button>{newDataPost.length} LIKE</Button>
           {liked ? (
-            <Button onClick={() => likeIt()} color="grey">
+            <Button
+              onClick={() => {
+                likeIt();
+              }}
+              color="grey"
+            >
               <FaHeart className="fill-red-500 mr-3 h-4 w-4" />
               Ti piace
             </Button>
           ) : (
-            <Button onClick={() => likeIt()} color="grey">
+            <Button
+              onClick={() => {
+                likeIt();
+              }}
+              color="grey"
+            >
               <CiHeart className="mr-3 h-4 w-4" />
               Mi piace
             </Button>

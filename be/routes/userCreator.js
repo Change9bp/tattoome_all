@@ -237,6 +237,39 @@ userCreator.patch(
   }
 );
 
+//PATCH CHE AGGIUNGE LE VIEWS AL CREATOR
+
+userCreator.patch(
+  "/userCreator/:userId/views",
+  /*verifyToken,*/ async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+      const userCreator = await UserCreatorModel.findByIdAndUpdate(
+        userId,
+        { $inc: { views: 1 } },
+        { new: true }
+      );
+
+      if (!userCreator) {
+        return res.status(404).json({ message: "creator not found" });
+      }
+
+      res.status(200).send({
+        statusCode: 200,
+        message: "add views to CREATOR!",
+        userCreator,
+      });
+    } catch (error) {
+      res.status(500).send({
+        statusCode: 500,
+        message: "Server internal error",
+        error: error,
+      });
+    }
+  }
+);
+
 //DELETE
 
 userCreator.delete(
