@@ -8,6 +8,7 @@ import FormUserProfile from "../../components/forms/FormUserProfile";
 import JumboCreator from "../../components/jumbotron/JumboCreator";
 import FormBecomeCreator from "../../components/forms/FormBecomeCreator";
 import { GlobalProvider } from "../../context/getContext";
+import FooterGlobal from "../../components/footer/FooterGlobal";
 
 const UserPage = () => {
   const { infoSingleCreator } = useContext(GlobalProvider);
@@ -115,6 +116,7 @@ const UserPage = () => {
           </div>
         )}
       </main>
+      <FooterGlobal />
     </>
   );
 };

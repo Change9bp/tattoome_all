@@ -5,7 +5,7 @@ import LastAdded from "../../components/lastAdded/LastAdded";
 import LastRegistered from "../../components/lastRegistered/LastRegistered";
 import SearchCreator from "../../components/searchArea/SearchCreator";
 import { GlobalProvider } from "../../context/getContext";
-import FooterGlobal from "../../components/footer/Footer";
+import FooterGlobal from "../../components/footer/FooterGlobal";
 import SearchPost from "../../components/searchArea/SearchPost";
 import SelectCreatorOrPost from "../../components/searchArea/SelectCreatorOrPost";
 import ShowListOfCard from "../../components/showListofCard/ShowListOfCard";
@@ -29,7 +29,7 @@ const Home = () => {
       <NavbarDropdown />
       <Jumbotron />
       <div>
-        <h2 className="max-w-screen-2xl mx-auto p-4 text-2xl font-extrabold text-center">
+        <h2 className="max-w-screen-2xl mx-auto my-10 text-2xl font-extrabold text-center">
           Trova il Tatuatore più vicino a te
         </h2>
         <SelectCreatorOrPost />

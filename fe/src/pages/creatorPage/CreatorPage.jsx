@@ -6,6 +6,7 @@ import Portfolio from "../../components/portfolio/Portfolio";
 import FlashTattoo from "../../components/flashTattoo/FlashTattoo";
 import Calendar from "../../components/calendar/Calendar";
 import { useParams } from "react-router-dom";
+import FooterGlobal from "../../components/footer/FooterGlobal";
 
 const CreatorPage = () => {
   const [portfolio, setPortfolio] = useState(false);
@@ -55,6 +56,7 @@ const CreatorPage = () => {
       {portfolio ? <Portfolio id={id} /> : null}
       {flash ? <FlashTattoo /> : null}
       {booking ? <Calendar /> : null}
+      <FooterGlobal />
     </>
   );
 };

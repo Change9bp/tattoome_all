@@ -4,7 +4,6 @@ import Select from "react-select";
 import { Formik, Field, Form } from "formik";
 import { city, region, styles } from "../../data/tabelleDropdown";
 import axios from "axios";
-import CardUserCreator from "../cardUserCreator/CardUserCreator";
 import { GlobalProvider } from "../../context/getContext";
 
 const SearchCreator = () => {
@@ -34,9 +33,9 @@ const SearchCreator = () => {
     setFilteredCreator(
       listCreator.filter((singleCreator) => {
         return (
-          singleCreator.name.includes(inputSearch) ||
-          singleCreator.lastName.includes(inputSearch) ||
-          singleCreator.alias.includes(inputSearch)
+          singleCreator.name.toLowerCase().includes(inputSearch) ||
+          singleCreator.lastName.toLowerCase().includes(inputSearch) ||
+          singleCreator.alias.toLowerCase().includes(inputSearch)
         );
       })
     );
@@ -58,8 +57,12 @@ const SearchCreator = () => {
             tattooStyle: values.tattooStyle,
           };
           await searchCreatorQuery(finalBody);
-          searchOnResponse(values.inputSearch);
+          searchOnResponse(values.inputSearch.toLowerCase());
           console.log("valore della query di ricerca", finalBody);
+          console.log(
+            "fammi vedere la ricerca dell'input searchbar",
+            values.inputSearch
+          );
         }}
       >
         <Form className="border-solid border border-slate-500 shadow-xl py-10 px-20 max-w-screen-xl mx-auto rounded-full">

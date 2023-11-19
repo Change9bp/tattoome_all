@@ -7,14 +7,8 @@ import axios from "axios";
 import { GlobalProvider } from "../../context/getContext";
 
 const SearchPost = () => {
-  const {
-    alert,
-    setAlert,
-    listPost,
-    setListPost,
-    filteredPost,
-    setFilteredPost,
-  } = useContext(GlobalProvider);
+  const { alert, setAlert, listPost, setListPost, setFilteredPost } =
+    useContext(GlobalProvider);
 
   const searchPostQuery = async (finalBody) => {
     try {
@@ -34,8 +28,8 @@ const SearchPost = () => {
       listPost.filter((singlePost) => {
         console.log("risultato filtrato post", singlePost);
         return (
-          singlePost.title.includes(inputSearch) ||
-          singlePost.content.includes(inputSearch)
+          singlePost.title.toLowerCase().includes(inputSearch) ||
+          singlePost.content.toLowerCase().includes(inputSearch)
         );
       })
     );
@@ -52,7 +46,7 @@ const SearchPost = () => {
           tattooStyle: values.tattooStyle,
         };
         await searchPostQuery(finalBody);
-        searchOnResponse(values.inputSearch);
+        searchOnResponse(values.inputSearch.toLowerCase());
         console.log("valore della query di ricerca", finalBody);
       }}
     >

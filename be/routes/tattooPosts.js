@@ -1,6 +1,7 @@
 const express = require("express");
 const tattooPost = express.Router();
 const PostModel = require("../models/postModel");
+const UserCreatorModel = require("../models/userCreatorModel");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
@@ -180,7 +181,10 @@ tattooPost.post("/tattooPost/search", async (req, res) => {
     }
 
     // Esegui la query nel database
-    const results = await PostModel.find(query);
+    const results = await PostModel.find(query).populate({
+      path: "author",
+      select: "_id name lastName email avatar",
+    });
 
     res.status(200).send({
       statusCode: 200,
@@ -229,6 +233,70 @@ tattooPost.patch(
     }
   }
 );
+
+//da qui testiamo la logica del LIKE
+
+tattooPost.patch("/tattooPost/:postId/like/:likedUserId", async (req, res) => {
+  console.log("Request received");
+  const { postId, likedUserId } = req.params;
+
+  const userExists = await UserCreatorModel.findById(likedUserId);
+
+  if (!userExists) {
+    return res.status(404).send({
+      statusCode: 404,
+      message: "User does not exist",
+    });
+  }
+
+  const post = await PostModel.findById(postId);
+  console.log("ho trovato l'i del post?", post);
+
+  if (!post) {
+    return res.status(404).send({
+      statusCode: 404,
+      message: "Post not found",
+    });
+  }
+
+  try {
+    const userAlreadyLiked = post.likes.some(
+      (like) => like.user.toString() === likedUserId.toString()
+    );
+    console.log("l'iddell'utente c'è?", likedUserId);
+    console.log("l'iddell'utente c'è?", likedUserId);
+    console.log("il like c'è?", userAlreadyLiked);
+
+    let updatedPost;
+
+    // Aggiungi "mi piace" solo se l'utente corrente non ha già messo "mi piace" togliolo se lo ha già messo
+    if (!userAlreadyLiked) {
+      updatedPost = await PostModel.findByIdAndUpdate(
+        postId,
+        { $addToSet: { likes: { user: likedUserId } } },
+        { new: true }
+      );
+    } else {
+      updatedPost = await PostModel.findByIdAndUpdate(
+        postId,
+        { $pull: { likes: { user: likedUserId } } },
+        { new: true }
+      );
+    }
+
+    res.status(200).send({
+      statusCode: 200,
+      message: "Like operation completed successfully",
+      updatedPost,
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Server internal error",
+      error: error,
+    });
+  }
+});
 
 //DELETE
 

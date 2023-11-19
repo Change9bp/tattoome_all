@@ -98,7 +98,7 @@ const InfoCreator = ({ id }) => {
               />
               <Marker position={[lat, lon]}>
                 <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
+                  {address} <br /> {city}.
                 </Popup>
               </Marker>
             </MapContainer>

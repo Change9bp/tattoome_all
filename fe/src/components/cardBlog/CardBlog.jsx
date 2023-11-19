@@ -18,7 +18,9 @@ const CardBlog = ({ ...singlePost }) => {
             src={cover}
           />
           <div className="flex flex-col items-center rounded-3xl absolute inset-0 bg-black bg-opacity-50 justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
-            <h5 className="mb-1 text-xl font-medium text-white">{title}</h5>
+            <h5 className="mb-1 text-xl font-medium text-white text-center">
+              {title}
+            </h5>
             <Link to={`/creatorpage/${author._id}`}>
               <div className="flex items-center">
                 <Avatar

@@ -12,7 +12,7 @@ const CardUserCreator = ({ _id, name, lastName, avatar, role }) => {
           src={avatar}
         />
         <div className="flex flex-col items-center rounded-3xl absolute inset-0 bg-black bg-opacity-50 justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
-          <h5 className="mb-1 text-xl font-medium text-white">
+          <h5 className="mb-1 text-xl font-medium text-center text-white">
             {name} {lastName}
           </h5>
           <span className="text-s text-white">{role}</span>
