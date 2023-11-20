@@ -3,6 +3,7 @@ import { Button, Label } from "flowbite-react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { GlobalProvider } from "../../context/getContext";
+import "./formGeneral.css";
 
 const FormRegisterUser = () => {
   const { registerUser, alert } = useContext(GlobalProvider);
@@ -39,116 +40,130 @@ const FormRegisterUser = () => {
         registerUser(values);
       }}
     >
-      {alert && (
-        <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
-          {alert}
-        </h5>
-      )}
+      <div>
+        {alert && (
+          <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
+            {alert}
+          </h5>
+        )}
 
-      <Form className="flex max-w-lg flex-col gap-4 mx-auto mb-10">
-        <div>
-          <Label htmlFor="name" value="Nome" className="text-white" />
-          <Field
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Inserisci il tuo Nome"
-            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-          />
-          <ErrorMessage name="name" component="div" />
-        </div>
-
-        <div>
-          <Label className="text-white" htmlFor="lastName" value="Cognome" />
-          <Field
-            type="text"
-            name="lastName"
-            id="lastName"
-            placeholder="Inserisci il tuo Cognome"
-            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-          />
-          <ErrorMessage name="lastName" component="div" />
-        </div>
-
-        <div>
-          <Label className="text-white" htmlFor="alias" value="Alias" />
-          <Field
-            type="text"
-            name="alias"
-            id="alias"
-            placeholder="Inserisci il tuo Alias"
-            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-          />
-          <ErrorMessage name="lastName" component="div" />
-        </div>
-
-        <div>
-          <Label
-            className="text-white"
-            htmlFor="email"
-            value="Inserisci la tua mail"
-          />
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-              <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 16"
-              >
-                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-              </svg>
-            </div>
+        <Form className="flex max-w-lg flex-col gap-4 mx-auto mb-10">
+          <div>
+            <Label
+              htmlFor="name"
+              value="Nome"
+              className="text-white shadow-text"
+            />
             <Field
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Inserisci l'indirizzo email"
-              className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Inserisci il tuo Nome"
+              className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+            />
+            <ErrorMessage name="name" component="div" />
+          </div>
+
+          <div>
+            <Label
+              className="text-white shadow-text"
+              htmlFor="lastName"
+              value="Cognome"
+            />
+            <Field
+              type="text"
+              name="lastName"
+              id="lastName"
+              placeholder="Inserisci il tuo Cognome"
+              className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+            />
+            <ErrorMessage name="lastName" component="div" />
+          </div>
+
+          <div>
+            <Label
+              className="text-white shadow-text"
+              htmlFor="alias"
+              value="Alias"
+            />
+            <Field
+              type="text"
+              name="alias"
+              id="alias"
+              placeholder="Inserisci il tuo Alias"
+              className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+            />
+            <ErrorMessage name="lastName" component="div" />
+          </div>
+
+          <div>
+            <Label
+              className="text-white shadow-text"
+              htmlFor="email"
+              value="Inserisci la tua mail"
+            />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                <svg
+                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 16"
+                >
+                  <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                  <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                </svg>
+              </div>
+              <Field
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Inserisci l'indirizzo email"
+                className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+              />
+            </div>
+            <ErrorMessage name="email" component="div" />
+          </div>
+
+          <div>
+            <Label
+              className="text-white shadow-text"
+              htmlFor="password"
+              value="Inserisci la tua password"
+            />
+            <Field
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Inserisci la password"
+              className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+            />
+            <ErrorMessage name="password" component="div" />
+          </div>
+
+          <div>
+            <Label
+              className="text-white shadow-text"
+              htmlFor="confirmPassword"
+              value="Conferma la tua password"
+            />
+            <Field
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Conferma la password"
+              className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
             />
           </div>
-          <ErrorMessage name="email" component="div" />
-        </div>
-
-        <div>
-          <Label
-            className="text-white"
-            htmlFor="password"
-            value="Inserisci la tua password"
-          />
-          <Field
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Inserisci la password"
-            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-          />
-          <ErrorMessage name="password" component="div" />
-        </div>
-
-        <div>
-          <Label
-            className="text-white"
-            htmlFor="confirmPassword"
-            value="Conferma la tua password"
-          />
-          <Field
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            placeholder="Conferma la password"
-            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-          />
-        </div>
-        <Button
-          type="submit"
-          className="w-full text-white bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 hover:bg-violet-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Register new account
-        </Button>
-      </Form>
+          <Button
+            type="submit"
+            className="shadow-md shadow-black w-full text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Register new account
+          </Button>
+        </Form>
+      </div>
     </Formik>
   );
 };

@@ -6,11 +6,15 @@ import Portfolio from "../../components/portfolio/Portfolio";
 import Calendar from "../../components/calendar/Calendar";
 import { useParams } from "react-router-dom";
 import FooterGlobal from "../../components/footer/FooterGlobal";
+import { FaBookmark, FaHeart } from "react-icons/fa6";
+import { CiHeart } from "react-icons/ci";
 import axios from "axios";
 
 const CreatorPage = () => {
   const [portfolio, setPortfolio] = useState(false);
   const [booking, setBooking] = useState(false);
+  // const [liked, setLiked] = useState(false);
+  // const [newDataPost, setNewDataPost] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -27,11 +31,53 @@ const CreatorPage = () => {
       console.log(error.response);
     }
   };
+  // const ottieniILike = async () => {
+  //   const response = await axios.get(
+  //     `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${id}`
+  //   );
+  //   setNewDataPost(response.data.post.likes);
+  //   console.log("cosa ho salvato in new data post", response.data.post.likes);
+  // };
+
+  // const likeIt = async () => {
+  //   try {
+  //     const response = await axios.patch(
+  //       `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${id}/like/`
+  //     );
+  //     ottieniILike();
+  //   } catch (error) {
+  //     console.log(error.response);
+  //   }
+  // };
 
   return (
     <>
       <NavbarDropdown />
       <InfoCreator id={id} />
+      {/* <Button.Group className="flex max-w-screen-2xl justify-end mt-4 pr-20">
+        <Button>{newDataPost.length} LIKE</Button>
+        {liked ? (
+          <Button
+            onClick={() => {
+              likeIt();
+            }}
+            color="grey"
+          >
+            <FaHeart className="fill-red-500 mr-3 h-4 w-4" />
+            Ti piace
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              likeIt();
+            }}
+            color="grey"
+          >
+            <CiHeart className="mr-3 h-4 w-4" />
+            Mi piace
+          </Button>
+        )}
+      </Button.Group> */}
       <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
         <button
           onClick={() => {

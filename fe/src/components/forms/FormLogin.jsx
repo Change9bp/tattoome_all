@@ -3,6 +3,7 @@ import { Button, Label } from "flowbite-react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { GlobalProvider } from "../../context/getContext";
+import "./formGeneral.css";
 
 const FormLogin = () => {
   const { loginUser } = useContext(GlobalProvider);
@@ -35,7 +36,7 @@ const FormLogin = () => {
           <Label
             htmlFor="email"
             value="Inserisci la tua mail"
-            className="text-white"
+            className="text-white shadow-text"
           />
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
@@ -55,7 +56,7 @@ const FormLogin = () => {
               name="email"
               id="email"
               placeholder="Inserisci l'indirizzo email"
-              className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+              className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
             />
           </div>
           <ErrorMessage className="text-red-500" name="email" component="div" />
@@ -65,14 +66,14 @@ const FormLogin = () => {
           <Label
             htmlFor="password"
             value="Inserisci la tua password"
-            className="text-white"
+            className="text-white shadow-text"
           />
           <Field
             type="password"
             name="password"
             id="password"
             placeholder="Inserisci la password"
-            className="bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+            className="shadow-md shadow-black bg-gray-50/50 placeholder-black hover:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
           />
           <ErrorMessage
             className="text-red-500"
@@ -82,7 +83,7 @@ const FormLogin = () => {
         </div>
         <Button
           type="submit"
-          className="w-full text-white bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 hover:bg-violet-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className=" shadow-md shadow-black w-full text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Entra nella community
         </Button>
