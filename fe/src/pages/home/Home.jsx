@@ -29,7 +29,7 @@ const Home = () => {
       <NavbarDropdown />
       <Jumbotron />
       <div>
-        <h2 className="max-w-screen-2xl mx-auto my-10 text-2xl font-extrabold text-center">
+        <h2 className="max-w-screen-2xl mx-auto my-10 text-xl md:text-2xl lg:text-4xl font-extrabold text-center">
           Trova il Tatuatore più vicino a te
         </h2>
         <SelectCreatorOrPost />
@@ -40,11 +40,11 @@ const Home = () => {
         ) : null}
         <ShowListOfCard />
       </div>
-      <h2 className="max-w-screen-2xl mx-auto px-4 pt-8 text-4xl font-extrabold">
+      <h2 className="max-w-screen-2xl mx-auto px-4 text-xl md:text-2xl lg:text-4xl font-extrabold">
         Ultimi aggiunti dalla community
       </h2>
       <LastAdded />
-      <h2 className="max-w-screen-2xl mx-auto px-4 text-4xl font-extrabold">
+      <h2 className="max-w-screen-2xl mx-auto px-4 pt-8 text-xl md:text-2xl lg:text-4xl font-extrabold">
         Ultimi creator registrati alla community
       </h2>
       <LastRegistered creatorList={creatorList} />

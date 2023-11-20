@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Label } from "flowbite-react";
 import Select from "react-select";
 import { Formik, Field, Form } from "formik";
@@ -15,6 +15,8 @@ const SearchCreator = () => {
     filteredCreator,
     setFilteredCreator,
   } = useContext(GlobalProvider);
+
+  const [inputSearchValue, setInputSearchValue] = useState("");
 
   const searchCreatorQuery = async (finalBody) => {
     try {
@@ -41,6 +43,10 @@ const SearchCreator = () => {
     );
   };
 
+  useEffect(() => {
+    searchOnResponse(inputSearchValue);
+  }, [listCreator]);
+
   return (
     <div>
       <Formik
@@ -56,16 +62,11 @@ const SearchCreator = () => {
             city: values.city.value,
             tattooStyle: values.tattooStyle,
           };
+          setInputSearchValue(values.inputSearch.toLowerCase());
           await searchCreatorQuery(finalBody);
-          searchOnResponse(values.inputSearch.toLowerCase());
-          console.log("valore della query di ricerca", finalBody);
-          console.log(
-            "fammi vedere la ricerca dell'input searchbar",
-            values.inputSearch
-          );
         }}
       >
-        <Form className="border-solid border border-slate-500 shadow-xl py-10 px-20 max-w-screen-xl mx-auto rounded-full">
+        <Form className="border-solid border border-slate-500 py-10 px-20 max-w-screen-xl mx-auto rounded-3xl">
           <div className=" grid grid-cols-3 gap-16">
             <div className="block">
               {alert && (
@@ -126,12 +127,12 @@ const SearchCreator = () => {
               name="inputSearch"
               type="search"
               placeholder="Cerca il tuo tatuatore per Nome, Cognome o Alias"
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg  border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-t-lg  border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
             />
 
             <Button
               type="submit"
-              className="w-full text-white bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 hover:bg-violet-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="w-full text-white bg-slate-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-t-none px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
                 className="w-4 h-4 mr-3"

@@ -18,7 +18,7 @@ const CardBlog = ({ ...singlePost }) => {
             src={cover}
           />
           <div className="flex flex-col items-center rounded-3xl absolute inset-0 bg-black bg-opacity-50 justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
-            <h5 className="mb-1 text-xl font-medium text-white text-center">
+            <h5 className="mb-1 text-base md:text-lg lg:text-xl font-medium text-white text-center">
               {title}
             </h5>
             <Link to={`/creatorpage/${author._id}`}>
@@ -29,13 +29,15 @@ const CardBlog = ({ ...singlePost }) => {
                   size="md"
                   className="shadow-xl"
                 />
-                <span className="ml-3 text-s text-white">
+                <span className="ml-3 text-sm md:text-base text-white">
                   {author.name} {author.lastName}
                 </span>
               </div>
             </Link>
             <div className="mt-4 flex space-x-3 lg:mt-6">
-              <Button onClick={() => setOpenModal(true)}>Leggi il Post</Button>
+              <Button size={"sm"} onClick={() => setOpenModal(true)}>
+                Leggi il Post
+              </Button>
             </div>
           </div>
         </div>
