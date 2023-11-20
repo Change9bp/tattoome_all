@@ -274,17 +274,25 @@ userCreator.patch(
 
 userCreator.delete(
   "/userCreator/:_id",
-  /*verifyToken,*/ (req, res) => {
+  /*verifyToken,*/ async (req, res) => {
     const { _id } = req.params;
     console.log(_id);
     try {
-      const userCreatorToDelete = UserCreatorModel.findByIdAndDelete(_id);
+      const userCreatorToDelete = await UserCreatorModel.findByIdAndDelete(_id);
+
       if (!userCreatorToDelete) {
         return res.status(404).send({
           statusCode: 404,
           message: "user or creator dosent exists or already deleted",
         });
       }
+
+      // Rimuovi i post associati all'utente
+      await Post.deleteMany({ author: userId });
+
+      // Rimuovi i like associati all'utente
+      await Like.deleteMany({ userId: userId });
+
       res.status(200).send({
         statusCode: 200,
         message: "author correctly deleted",

@@ -3,26 +3,41 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Select from "react-select";
 import { styles } from "../../data/tabelleDropdown";
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { GlobalProvider } from "../../context/getContext";
 
 const FormNewPost = () => {
-  const { dataUser, uploadFileCloudinary, alert, setAlert } =
-    useContext(GlobalProvider);
+  const uploadFileCloudinary = async (cover) => {
+    console.log(cover, "cover del file");
+    const fileData = new FormData();
+    fileData.append("cover", cover);
+
+    console.log("bella caro", cover);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/cloudUpload`,
+        fileData
+        // {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }
+      );
+      return response.data.cover;
+    } catch (error) {
+      console.log(error.response, "errore in upload file");
+    }
+  };
 
   const newPost = async (values) => {
+    console.log(`${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost`);
     if (values.cover) {
       try {
-        const uploadCover = await uploadFileCloudinary(
-          "cover",
-          "tattooPost",
-          values.cover
-        );
+        const uploadCover = await uploadFileCloudinary(values.cover);
         const finalBody = {
           ...values,
           cover: uploadCover,
-          author: dataUser.id,
         };
         const response = await axios.post(
           `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost`,
@@ -34,26 +49,15 @@ const FormNewPost = () => {
       }*/
         );
         console.log(response);
-        if (response.status === 200 && response.statusText === "OK") {
-          setAlert("POST inviato correttamente!");
-          setTimeout(() => {
-            setAlert("");
-            window.location.reload();
-          }, 3000);
-        }
       } catch (err) {
         console.error("errore", err);
-        setAlert("Errore nel caricamento dei dati riprova più tardi");
-        setTimeout(() => {
-          setAlert("");
-        }, 3000);
       }
     }
   };
 
   return (
     <>
-      <div class="my-4 rounded-3xl h-72 max-w-screen-2xl mx-auto bg-center bg-no-repeat bg-[url('https://images.pexels.com/photos/6593354/pexels-photo-6593354.jpeg?auto=compress&cs=tinysrgb&w=1600')] bg-gray-700 bg-blend-multiply flex flex-col justify-center items-center">
+      <div class="my-4 rounded-xl h-72 max-w-screen-xl mx-auto bg-center bg-no-repeat bg-[url('https://images.pexels.com/photos/6593354/pexels-photo-6593354.jpeg?auto=compress&cs=tinysrgb&w=1600')] bg-gray-700 bg-blend-multiply flex flex-col justify-center items-center">
         <h1 className="mb-4 mx-4 text-3xl font-extrabold text-white md:text-5xl lg:text-6xl">
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
             Aggiungi un POST
@@ -69,11 +73,7 @@ const FormNewPost = () => {
       <h3 class="mb-4 text-2xl text-center font-bold dark:text-white">
         Dai un TITOLO, aggiungi una FOTO, scrivi il TUO CONTENUTO
       </h3>
-      {alert && (
-        <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
-          {alert}
-        </h5>
-      )}
+
       <Formik
         initialValues={{
           title: "",
@@ -101,9 +101,13 @@ const FormNewPost = () => {
             }),
           tattooStyle: Yup.array().min(1, "Seleziona almeno uno style"),
         })}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={(values, { setSubmitting }) => {
           console.log("valori", values.cover);
           newPost(values);
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
         }}
       >
         {({ setFieldValue }) => (
@@ -111,7 +115,7 @@ const FormNewPost = () => {
             <div id="selectStyles" className="w-full mb-2">
               <div className="mb-2 block">
                 <Label
-                  htmlFor="tattooStyle"
+                  htmlFor="selecStyles"
                   value="Seleziona lo stile del Tattoo"
                 />
               </div>

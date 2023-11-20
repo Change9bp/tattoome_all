@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Jumbotron = () => {
   return (
@@ -26,12 +27,18 @@ const Jumbotron = () => {
               ></path>
             </svg>
           </p>
-          <a
-            href="#"
-            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white lg:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-          >
-            Completa la registrazione
-          </a>
+
+          <Link to={"/userpage"}>
+            <p
+              className="inline-flex items-center justify-center px-5 py-3
+            text-base font-medium text-center text-white lg:text-gray-900 border
+            border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4
+            focus:ring-gray-100 dark:text-white dark:border-gray-700
+            dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            >
+              Completa la registrazione
+            </p>
+          </Link>
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
           <img

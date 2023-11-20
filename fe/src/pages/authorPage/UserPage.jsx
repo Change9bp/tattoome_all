@@ -9,13 +9,16 @@ import JumboCreator from "../../components/jumbotron/JumboCreator";
 import FormBecomeCreator from "../../components/forms/FormBecomeCreator";
 import { GlobalProvider } from "../../context/getContext";
 import FooterGlobal from "../../components/footer/FooterGlobal";
+import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
-  const { infoSingleCreator, getInfoSingleCreator, dataUser } =
+  const { infoSingleCreator, getInfoSingleCreator, dataUser, alert, delUser } =
     useContext(GlobalProvider);
   const { name, lastName, avatar, role, views } = infoSingleCreator;
   const [modify, setModify] = useState(false);
   const [creator, setCreator] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getInfoSingleCreator(dataUser.id);
@@ -76,10 +79,21 @@ const UserPage = () => {
                 </Button>
               </div>
             )}
-            <Button color="warning" className="mx-auto">
+            <Button
+              onClick={() => {
+                delUser();
+              }}
+              color="warning"
+              className="mx-auto"
+            >
               <MdDeleteForever /> Cancella Utente
             </Button>
           </div>
+          {alert && (
+            <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
+              {alert}
+            </h5>
+          )}
           <div className="mx-4 my-8 w-full md:w-3/4 grid grid-cols-3">
             <div className="flex flex-col items-center truncate">
               <p className="text-center text-md font-semibold dark:text-white mb-2">

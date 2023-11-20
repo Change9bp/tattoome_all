@@ -10,11 +10,11 @@ const CardBlog = ({ ...singlePost }) => {
 
   return (
     <>
-      <div className="flex rounded-3xl border border-gray-200 bg-white shadow-md flex-col relative p-0">
+      <div className="flex rounded-3xl border aspect-video border-gray-200 bg-white shadow-md flex-col relative p-0">
         <div className="flex flex-col items-center relative group">
           <img
             alt="Bonnie image"
-            class="h-auto w-full object-cover transition-all duration-300 rounded-3xl"
+            class="h-auto w-full aspect-video object-cover transition-all duration-300 rounded-3xl"
             src={cover}
           />
           <div className="flex flex-col items-center rounded-3xl absolute inset-0 bg-black bg-opacity-50 justify-center opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">

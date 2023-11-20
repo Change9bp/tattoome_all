@@ -18,7 +18,7 @@ const GlobalContext = ({ children }) => {
   const [alert, setAlert] = useState("");
   const [dataUser, setDataUser] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(4);
 
   const navigate = useNavigate();
 
@@ -101,6 +101,32 @@ const GlobalContext = ({ children }) => {
     } catch (error) {
       console.error("errore", error.response);
       setAlert("Non è stato possibile registrarsi alla piattaforma!");
+      setTimeout(() => {
+        setAlert("");
+      }, 3000);
+    }
+  };
+
+  //chiamata DEL PER CANCELLARE UTENTE
+
+  const delUser = async () => {
+    const confirmDel = window.confirm(
+      "Sei sicuro di voler cancellare il tuo profilo? Verranno cancellati anche tutti i tuoi Post, i tuoi Lik e le tue Informazioni"
+    );
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${dataUser.id}`
+      );
+      setAlert("Utente correttamente cancellato");
+      setTimeout(() => {
+        setAlert("");
+        localStorage.removeItem("loggedInUser");
+        localStorage.removeItem("userDataDetails");
+        navigate("/");
+      }, 3000);
+    } catch (error) {
+      console.log(error.response);
+      setAlert("Operazione non andata a buon fine, riprovare più tardi");
       setTimeout(() => {
         setAlert("");
       }, 3000);
@@ -264,6 +290,8 @@ const GlobalContext = ({ children }) => {
         setListCreator,
         filteredCreator,
         setFilteredCreator,
+        tattooPostsForCreator,
+        delUser,
       }}
     >
       {children}

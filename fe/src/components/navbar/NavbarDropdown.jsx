@@ -13,12 +13,12 @@ const NavbarDropdown = () => {
   const handleLogOut = () => {
     localStorage.removeItem("loggedInUser");
     localStorage.removeItem("userDataDetails");
-    Navigate("/login");
+    Navigate("/");
   };
 
   return (
     <div className="z-20 top-0 left-0 shadow-sm sticky">
-      <Navbar fluid rounded className="max-w-screen-2xl mx-auto">
+      <Navbar fluid rounded className="max-w-screen-2xl mx-auto py-0">
         <Link to={"/home"}>
           <Navbar.Brand>
             <Avatar
@@ -50,13 +50,6 @@ const NavbarDropdown = () => {
                 />
                 <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
               </div>
-              // <Avatar
-              //   img={avatar}
-              //   rounded
-              //   status="online"
-              //   statusPosition="top-right"
-              //   size="md"
-              // />
             }
           >
             <Dropdown.Header>
@@ -68,21 +61,10 @@ const NavbarDropdown = () => {
             <Link to={"/userpage"}>
               <Dropdown.Item>Impostazioni</Dropdown.Item>
             </Link>
-            <Dropdown.Item>Cose</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleLogOut}>Log Out</Dropdown.Item>
           </Dropdown>
-          {/* <Navbar.Toggle /> */}
         </div>
-        {/* <Navbar.Collapse>
-        <Navbar.Link href="#" active>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
-      </Navbar.Collapse> */}
       </Navbar>
     </div>
   );
