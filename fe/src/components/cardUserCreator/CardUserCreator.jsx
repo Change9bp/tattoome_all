@@ -1,11 +1,21 @@
 import React from "react";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const CardUserCreator = ({ _id, name, lastName, avatar, role }) => {
   return (
-    <div className="flex rounded-3xl border border-gray-200 bg-white shadow-md flex-col relative p-0">
-      <div className="flex flex-col items-center relative group">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="overflow-hidden flex rounded-3xl border border-gray-200 bg-white shadow-md flex-col relative p-0"
+    >
+      <motion.div
+        whileHover={{ scale: 1.2 }}
+        transition={{ duration: 0.4 }}
+        className="flex flex-col items-center relative group"
+      >
         <img
           alt="Bonnie image"
           class="aspect-square h-auto w-full object-cover transition-all duration-300 rounded-3xl"
@@ -22,8 +32,8 @@ const CardUserCreator = ({ _id, name, lastName, avatar, role }) => {
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

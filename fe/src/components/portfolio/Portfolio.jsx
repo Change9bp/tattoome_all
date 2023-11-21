@@ -20,7 +20,7 @@ const Portfolio = ({ id }) => {
   }, []);
 
   return (
-    <>
+    <div className="px-4">
       {alert && (
         <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
           {alert}
@@ -35,7 +35,7 @@ const Portfolio = ({ id }) => {
           <CardBlogPortfolio key={singlePost._id} {...singlePost} />
         ))}
       </Masonry>
-    </>
+    </div>
   );
 };
 

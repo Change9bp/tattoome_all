@@ -2,6 +2,8 @@ const express = require("express");
 const tattooPost = express.Router();
 const PostModel = require("../models/postModel");
 const UserCreatorModel = require("../models/userCreatorModel");
+const verifyToken = require("../middlewares/verifyToken");
+const validatorTattooPost = require("../middlewares/validatorTattooPost");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
@@ -43,40 +45,37 @@ tattooPost.post(
 /* #endregion */
 
 //GET con pagination
-tattooPost.get(
-  "/tattooPost",
-  /*verifyToken,*/ async (req, res) => {
-    const { page, pageSize } = req.query;
-    console.log("page", page, "pagesize", pageSize);
-    const posts = await PostModel.find()
-      .populate({
-        path: "author",
-        select: "_id name lastName email avatar",
-      })
-      .limit(pageSize)
-      .skip((page - 1) * pageSize);
+tattooPost.get("/tattooPost", verifyToken, async (req, res) => {
+  const { page, pageSize } = req.query;
+  console.log("page", page, "pagesize", pageSize);
+  const posts = await PostModel.find()
+    .populate({
+      path: "author",
+      select: "_id name lastName email avatar",
+    })
+    .limit(pageSize)
+    .skip((page - 1) * pageSize);
 
-    const totalPosts = await PostModel.count();
+  const totalPosts = await PostModel.count();
 
-    try {
-      res.status(200).send({
-        statusCode: 200,
-        currentPage: Number(page),
-        totalPages: Math.ceil(totalPosts / pageSize),
-        posts,
-      });
-    } catch (error) {
-      res.status(500).send({
-        statusCode: 500,
-        message: "internal server error",
-      });
-    }
+  try {
+    res.status(200).send({
+      statusCode: 200,
+      currentPage: Number(page),
+      totalPages: Math.ceil(totalPosts / pageSize),
+      posts,
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "internal server error",
+    });
   }
-);
+});
 
 //GET BY ID
 
-tattooPost.get("/tattooPost/:_id", async (req, res) => {
+tattooPost.get("/tattooPost/:_id", verifyToken, async (req, res) => {
   const { _id } = req.params;
 
   const post = await PostModel.findById(_id);
@@ -104,8 +103,9 @@ tattooPost.get("/tattooPost/:_id", async (req, res) => {
 //GET CON ID DEL CREATOR
 
 tattooPost.get(
-  "/tattooPost/:idCreator/creator",
-  /*verifyToken,*/ async (req, res) => {
+  "/tattooPost/:idCrear/creator",
+  verifyToken,
+  async (req, res) => {
     const { idCreator } = req.params;
     const findPost = await PostModel.find({ author: idCreator }).populate({
       path: "author",
@@ -135,7 +135,9 @@ tattooPost.get(
 //POST
 tattooPost.post(
   "/tattooPost",
-  /*verifyToken, validatorPost,*/ async (req, res) => {
+  verifyToken,
+  validatorTattooPost,
+  async (req, res) => {
     const addPost = new PostModel({
       tattooStyle: req.body.tattooStyle,
       title: req.body.title,
@@ -164,43 +166,50 @@ tattooPost.post(
 
 //ROTTA CON QUERY RICERCA POST
 
-tattooPost.post("/tattooPost/search", async (req, res) => {
-  try {
-    // Estrai i parametri di ricerca dalla query
-    const { tattooStyle } = req.body;
+tattooPost.post(
+  "/tattooPost/search",
+  verifyToken,
+  validatorTattooPost,
+  async (req, res) => {
+    try {
+      // Estrai i parametri di ricerca dalla query
+      const { tattooStyle } = req.body;
 
-    // Costruisci la query Mongoose in base ai parametri ricevuti
-    const query = {};
+      // Costruisci la query Mongoose in base ai parametri ricevuti
+      const query = {};
 
-    if (tattooStyle && tattooStyle.length > 0) {
-      query.tattooStyle = {
-        $elemMatch: {
-          value: { $in: tattooStyle.map((style) => style.value) },
-        },
-      };
+      if (tattooStyle && tattooStyle.length > 0) {
+        query.tattooStyle = {
+          $elemMatch: {
+            value: { $in: tattooStyle.map((style) => style.value) },
+          },
+        };
+      }
+
+      // Esegui la query nel database
+      const results = await PostModel.find(query).populate({
+        path: "author",
+        select: "_id name lastName email avatar",
+      });
+
+      res.status(200).send({
+        statusCode: 200,
+        results,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Errore nella query del database" });
     }
-
-    // Esegui la query nel database
-    const results = await PostModel.find(query).populate({
-      path: "author",
-      select: "_id name lastName email avatar",
-    });
-
-    res.status(200).send({
-      statusCode: 200,
-      results,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Errore nella query del database" });
   }
-});
+);
 
 //PATCH
 
 tattooPost.patch(
   "/tattooPost/:_id",
-  /*verifyToken, validatorPost,*/ async (req, res) => {
+  verifyToken,
+  validatorTattooPost,
+  async (req, res) => {
     const { _id } = req.params;
     const postExists = await PostModel.findById(_id);
     if (!postExists) {
@@ -236,98 +245,100 @@ tattooPost.patch(
 
 //da qui testiamo la logica del LIKE
 
-tattooPost.patch("/tattooPost/:postId/like/:likedUserId", async (req, res) => {
-  console.log("Request received");
-  const { postId, likedUserId } = req.params;
+tattooPost.patch(
+  "/tattooPost/:postId/like/:likedUserId",
+  verifyToken,
+  validatorTattooPost,
+  async (req, res) => {
+    console.log("Request received");
+    const { postId, likedUserId } = req.params;
 
-  const userExists = await UserCreatorModel.findById(likedUserId);
+    const userExists = await UserCreatorModel.findById(likedUserId);
 
-  if (!userExists) {
-    return res.status(404).send({
-      statusCode: 404,
-      message: "User does not exist",
-    });
-  }
-
-  const post = await PostModel.findById(postId);
-  console.log("ho trovato l'i del post?", post);
-
-  if (!post) {
-    return res.status(404).send({
-      statusCode: 404,
-      message: "Post not found",
-    });
-  }
-
-  try {
-    const userAlreadyLiked = post.likes.some(
-      (like) => like.user.toString() === likedUserId.toString()
-    );
-    console.log("l'iddell'utente c'è?", likedUserId);
-    console.log("l'iddell'utente c'è?", likedUserId);
-    console.log("il like c'è?", userAlreadyLiked);
-
-    let updatedPost;
-
-    // Aggiungi "mi piace" solo se l'utente corrente non ha già messo "mi piace" togliolo se lo ha già messo
-    if (!userAlreadyLiked) {
-      updatedPost = await PostModel.findByIdAndUpdate(
-        postId,
-        { $addToSet: { likes: { user: likedUserId } } },
-        { new: true }
-      );
-    } else {
-      updatedPost = await PostModel.findByIdAndUpdate(
-        postId,
-        { $pull: { likes: { user: likedUserId } } },
-        { new: true }
-      );
-    }
-
-    res.status(200).send({
-      statusCode: 200,
-      message: "Like operation completed successfully",
-      updatedPost,
-    });
-  } catch (error) {
-    res.status(500).send({
-      statusCode: 500,
-      message: "Server internal error",
-      error: error,
-    });
-  }
-});
-
-//DELETE
-
-tattooPost.delete(
-  "/tattooPost/:_id",
-  /*verifyToken, validatorPost,*/ async (req, res) => {
-    const { _id } = req.params;
-
-    const delPost = await PostModel.findById(_id);
-    if (!delPost) {
+    if (!userExists) {
       return res.status(404).send({
         statusCode: 404,
-        message: "Post dosent exsists or already deleted",
+        message: "User does not exist",
       });
     }
+
+    const post = await PostModel.findById(postId);
+    console.log("ho trovato l'i del post?", post);
+
+    if (!post) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "Post not found",
+      });
+    }
+
     try {
-      const postToDelete = await PostModel.findByIdAndDelete(_id);
+      const userAlreadyLiked = post.likes.some(
+        (like) => like.user.toString() === likedUserId.toString()
+      );
+      console.log("l'iddell'utente c'è?", likedUserId);
+      console.log("l'iddell'utente c'è?", likedUserId);
+      console.log("il like c'è?", userAlreadyLiked);
+
+      let updatedPost;
+
+      // Aggiungi "mi piace" solo se l'utente corrente non ha già messo "mi piace" togliolo se lo ha già messo
+      if (!userAlreadyLiked) {
+        updatedPost = await PostModel.findByIdAndUpdate(
+          postId,
+          { $addToSet: { likes: { user: likedUserId } } },
+          { new: true }
+        );
+      } else {
+        updatedPost = await PostModel.findByIdAndUpdate(
+          postId,
+          { $pull: { likes: { user: likedUserId } } },
+          { new: true }
+        );
+      }
 
       res.status(200).send({
         statusCode: 200,
-        message: "post correctly deleted",
-        postToDelete,
+        message: "Like operation completed successfully",
+        updatedPost,
       });
     } catch (error) {
       res.status(500).send({
         statusCode: 500,
         message: "Server internal error",
-        error,
+        error: error,
       });
     }
   }
 );
+
+//DELETE
+
+tattooPost.delete("/tattooPost/:_id", verifyToken, async (req, res) => {
+  const { _id } = req.params;
+
+  const delPost = await PostModel.findById(_id);
+  if (!delPost) {
+    return res.status(404).send({
+      statusCode: 404,
+      message: "Post dosent exsists or already deleted",
+    });
+  }
+  try {
+    const postToDelete = await PostModel.findByIdAndDelete(_id);
+
+    res.status(200).send({
+      statusCode: 200,
+      message: "post correctly deleted",
+      postToDelete,
+    });
+  } catch (error) {
+    res.status(500).send({
+      statusCode: 500,
+      message: "Server internal error",
+      error,
+    });
+  }
+});
 
 module.exports = tattooPost;

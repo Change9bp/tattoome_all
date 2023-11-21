@@ -1,6 +1,8 @@
 const express = require("express");
 const userCreator = express.Router();
 const UserCreatorModel = require("../models/userCreatorModel");
+const verifyToken = require("../middlewares/verifyToken");
+const validatorUserCreator = require("../middlewares/validatorUserCreator");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
@@ -51,7 +53,7 @@ userCreator.post(
 
 //GET
 
-userCreator.get("/userCreator", async (req, res) => {
+userCreator.get("/userCreator", verifyToken, async (req, res) => {
   const userCreators = await UserCreatorModel.find();
   try {
     res.status(200).send({
@@ -68,7 +70,7 @@ userCreator.get("/userCreator", async (req, res) => {
 
 //GET SOLO CREATOR
 
-userCreator.get("/userCreator/onlyCreator", async (req, res) => {
+userCreator.get("/userCreator/onlyCreator", verifyToken, async (req, res) => {
   const userCreators = await UserCreatorModel.find({ role: "creator" });
   try {
     res.status(200).send({
@@ -85,7 +87,7 @@ userCreator.get("/userCreator/onlyCreator", async (req, res) => {
 
 //GET BY ID
 
-userCreator.get("/userCreator/:_id", async (req, res) => {
+userCreator.get("/userCreator/:_id", verifyToken, async (req, res) => {
   const { _id } = req.params;
 
   const userCreator = await UserCreatorModel.findById(_id);
@@ -112,51 +114,58 @@ userCreator.get("/userCreator/:_id", async (req, res) => {
 
 // ROTTA CON QUERY RICERCA USER CREATOR
 
-userCreator.post("/userCreator/search", async (req, res) => {
-  try {
-    // Estrai i parametri di ricerca dalla query
-    const { region, city, tattooStyle } = req.body;
+userCreator.post(
+  "/userCreator/search",
+  verifyToken,
+  validatorUserCreator,
+  async (req, res) => {
+    try {
+      // Estrai i parametri di ricerca dalla query
+      const { region, city, tattooStyle } = req.body;
 
-    // Costruisci la query Mongoose in base ai parametri ricevuti
-    const query = {};
+      // Costruisci la query Mongoose in base ai parametri ricevuti
+      const query = {};
 
-    if (region) {
-      query.region = region;
+      if (region) {
+        query.region = region;
+      }
+
+      if (city) {
+        query.city = city;
+      }
+
+      if (tattooStyle && tattooStyle.length > 0) {
+        query.tattooStyle = {
+          $elemMatch: {
+            value: { $in: tattooStyle.map((style) => style.value) },
+          },
+        };
+      }
+
+      console.log("la mia req", req.body);
+      console.log("la mia req", query);
+      // Esegui la query nel database
+      const results = await UserCreatorModel.find(query);
+
+      // Invia i risultati al frontend
+      // res.json(results);
+      res.status(200).send({
+        statusCode: 200,
+        results,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Errore nella query del database" });
     }
-
-    if (city) {
-      query.city = city;
-    }
-
-    if (tattooStyle && tattooStyle.length > 0) {
-      query.tattooStyle = {
-        $elemMatch: {
-          value: { $in: tattooStyle.map((style) => style.value) },
-        },
-      };
-    }
-
-    console.log("la mia req", req.body);
-    console.log("la mia req", query);
-    // Esegui la query nel database
-    const results = await UserCreatorModel.find(query);
-
-    // Invia i risultati al frontend
-    // res.json(results);
-    res.status(200).send({
-      statusCode: 200,
-      results,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Errore nella query del database" });
   }
-});
+);
 
 // POST
 userCreator.post(
   "/userCreator",
-  /*validatorUserCreator,*/ async (req, res) => {
+  verifyToken,
+  validatorUserCreator,
+  async (req, res) => {
     //imposto un lvl di criptazione 10
     const salt = await bcrypt.genSalt(10);
     //costante che cripta la password accetta due parametri, il primo cosa deve criptare ed il secondo con che metodo deve criptare
@@ -190,8 +199,8 @@ userCreator.post(
 
 userCreator.patch(
   "/userCreator/:_id",
-  /*validatorUserCreator,
-    verifyToken,*/
+  verifyToken,
+  validatorUserCreator,
   async (req, res) => {
     const { _id } = req.params;
 
@@ -237,11 +246,80 @@ userCreator.patch(
   }
 );
 
+//PATCH PER AGGIUNGERE LIKE
+
+userCreator.patch(
+  "/userCreator/:creatorId/like/:likedUserId",
+  verifyToken,
+  async (req, res) => {
+    console.log("Request received");
+    const { creatorId, likedUserId } = req.params;
+
+    const userExists = await UserCreatorModel.findById(likedUserId);
+
+    if (!userExists) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "User does not exist",
+      });
+    }
+
+    const creator = await UserCreatorModel.findById(creatorId);
+    console.log("ho trovato l'i del post?", creator);
+
+    if (!creator) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "creator not found",
+      });
+    }
+
+    try {
+      const userAlreadyLiked = creator.likes.some(
+        (like) => like.user.toString() === likedUserId.toString()
+      );
+      console.log("l'iddell'utente c'è?", likedUserId);
+      console.log("l'iddell'utente c'è?", likedUserId);
+      console.log("il like c'è?", userAlreadyLiked);
+
+      let updatedCreator;
+
+      // Aggiungi "mi piace" solo se l'utente corrente non ha già messo "mi piace" togliolo se lo ha già messo
+      if (!userAlreadyLiked) {
+        updatedCreator = await UserCreatorModel.findByIdAndUpdate(
+          creatorId,
+          { $addToSet: { likes: { user: likedUserId } } },
+          { new: true }
+        );
+      } else {
+        updatedCreator = await UserCreatorModel.findByIdAndUpdate(
+          creatorId,
+          { $pull: { likes: { user: likedUserId } } },
+          { new: true }
+        );
+      }
+
+      res.status(200).send({
+        statusCode: 200,
+        message: "Like operation completed successfully",
+        updatedCreator,
+      });
+    } catch (error) {
+      res.status(500).send({
+        statusCode: 500,
+        message: "Server internal error",
+        error: error,
+      });
+    }
+  }
+);
+
 //PATCH CHE AGGIUNGE LE VIEWS AL CREATOR
 
 userCreator.patch(
   "/userCreator/:userId/views",
-  /*verifyToken,*/ async (req, res) => {
+  verifyToken,
+  async (req, res) => {
     const { userId } = req.params;
 
     try {
@@ -272,39 +350,36 @@ userCreator.patch(
 
 //DELETE
 
-userCreator.delete(
-  "/userCreator/:_id",
-  /*verifyToken,*/ async (req, res) => {
-    const { _id } = req.params;
-    console.log(_id);
-    try {
-      const userCreatorToDelete = await UserCreatorModel.findByIdAndDelete(_id);
+userCreator.delete("/userCreator/:_id", verifyToken, async (req, res) => {
+  const { _id } = req.params;
+  console.log(_id);
+  try {
+    const userCreatorToDelete = await UserCreatorModel.findByIdAndDelete(_id);
 
-      if (!userCreatorToDelete) {
-        return res.status(404).send({
-          statusCode: 404,
-          message: "user or creator dosent exists or already deleted",
-        });
-      }
-
-      // Rimuovi i post associati all'utente
-      await Post.deleteMany({ author: userId });
-
-      // Rimuovi i like associati all'utente
-      await Like.deleteMany({ userId: userId });
-
-      res.status(200).send({
-        statusCode: 200,
-        message: "author correctly deleted",
-        userCreatorToDelete,
+    if (!userCreatorToDelete) {
+      return res.status(404).send({
+        statusCode: 404,
+        message: "user or creator dosent exists or already deleted",
       });
-    } catch (error) {}
-    res.status(500).send({
-      statusCode: 500,
-      message: "Server internal error",
+    }
+
+    // Rimuovi i post associati all'utente
+    await Post.deleteMany({ author: userId });
+
+    // Rimuovi i like associati all'utente
+    await Like.deleteMany({ userId: userId });
+
+    res.status(200).send({
+      statusCode: 200,
+      message: "author correctly deleted",
+      userCreatorToDelete,
     });
-  }
-);
+  } catch (error) {}
+  res.status(500).send({
+    statusCode: 500,
+    message: "Server internal error",
+  });
+});
 
 /* #endregion */
 module.exports = userCreator;

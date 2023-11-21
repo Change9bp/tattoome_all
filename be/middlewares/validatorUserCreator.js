@@ -76,4 +76,4 @@ const validatorUserCreator = (req, res, next) => {
   next();
 };
 
-module.exports = validatorAuthor;
+module.exports = validatorUserCreator;

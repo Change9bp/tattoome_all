@@ -6,7 +6,7 @@ const SelectCreatorOrPost = () => {
   const { setSelected } = useContext(GlobalProvider);
 
   return (
-    <div className="w-max-screen-lg flex justify-center mb-8">
+    <div className="w-max-screen-lg px-4 flex justify-center mb-8">
       <div className="rounded-full w-40 h-40 md:w-60 md:h-60 xl:w-72 xl:h-72 relative md:mx-10 mx-5">
         <div
           onClick={() => setSelected("creator")}

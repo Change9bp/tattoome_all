@@ -3,6 +3,7 @@ import { Button, Modal, Avatar } from "flowbite-react";
 import PostDetails from "../postDetails/PostDetails";
 import NavbarModal from "../navbar/NavbarModal";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const CardBlog = ({ ...singlePost }) => {
   const { title, cover, author } = singlePost;
@@ -10,8 +11,17 @@ const CardBlog = ({ ...singlePost }) => {
 
   return (
     <>
-      <div className="flex rounded-3xl border aspect-video border-gray-200 bg-white shadow-md flex-col relative p-0">
-        <div className="flex flex-col items-center relative group">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="overflow-hidden flex rounded-3xl border aspect-video border-gray-200 bg-white shadow-md flex-col relative p-0"
+      >
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-center relative group"
+        >
           <img
             alt="Bonnie image"
             class="h-auto w-full aspect-video object-cover transition-all duration-300 rounded-3xl"
@@ -40,8 +50,8 @@ const CardBlog = ({ ...singlePost }) => {
               </Button>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <Modal
         size={"7xl"}

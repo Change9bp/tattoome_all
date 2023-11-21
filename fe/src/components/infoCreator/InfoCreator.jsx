@@ -37,7 +37,7 @@ const InfoCreator = ({ id }) => {
   }, [infoSingleCreator]);
 
   return (
-    <div className="mt-8 max-w-xs sm:max-w-sm md:max-w-screen-sm lg:max-w-screen-lg mx-auto flex flex-col bg-white border border-gray-200 rounded-3xl shadow lg:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <div className="mt-8 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-screen-lg mx-auto flex flex-col bg-white border border-gray-200 rounded-3xl shadow lg:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <img
         className="object-cover w-full lg:w-1/2 rounded-t-3xl h-full lg:rounded-l-3xl lg:rounded-r-none"
         src={avatar}
@@ -84,7 +84,7 @@ const InfoCreator = ({ id }) => {
           Indirizzo: {address}
         </p>
 
-        <div className="h-72">
+        <div className="h-72 z-0">
           {lat && (
             <MapContainer
               className="h-full"

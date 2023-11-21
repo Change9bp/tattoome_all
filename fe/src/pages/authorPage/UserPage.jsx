@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 const UserPage = () => {
   const { infoSingleCreator, getInfoSingleCreator, dataUser, alert, delUser } =
     useContext(GlobalProvider);
-  const { name, lastName, avatar, role, views } = infoSingleCreator;
+  const { name, lastName, avatar, role, views, likes } = infoSingleCreator;
   const [modify, setModify] = useState(false);
   const [creator, setCreator] = useState(false);
 
@@ -120,7 +120,7 @@ const UserPage = () => {
               <p className="text-center text-md font-semibold dark:text-white mb-2">
                 Like
               </p>
-              <p>0</p>
+              <p>{likes.length}</p>
             </div>
           </div>
         </div>

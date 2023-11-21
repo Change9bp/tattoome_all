@@ -1,12 +1,23 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Jumbotron = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="rounded-3xl lg:grid max-w-screen-xl px-4 py-4 mx-auto gap-0 lg:py-8 lg:grid-cols-12 ">
-        <div className="py-20 px-4 rounded-3xl mr-auto place-self-center lg:col-span-7 bg-blend-multiply bg-no-repeat bg-cover bg-center bg-slate-500 bg-[url('https://images.pexels.com/photos/5490263/pexels-photo-5490263.jpeg')] lg:bg-none ">
-          <div className="mr-20">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.6 }}
+          className="overflow-hidden py-20 px-4 rounded-3xl mr-auto place-self-center lg:col-span-7 bg-blend-multiply bg-no-repeat bg-cover bg-center bg-slate-500 bg-[url('https://images.pexels.com/photos/5490263/pexels-photo-5490263.jpeg')] lg:bg-none "
+        >
+          <motion.div
+            initial={{ x: "-100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.6 }}
+            className="mr-20"
+          >
             <h1 className="max-w-2xl mb-4 text-4xl font-black tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white text-white lg:text-black">
               La più grande <br /> community italiana <br />
               sui Tattoo
@@ -41,15 +52,20 @@ const Jumbotron = () => {
                 Completa la registrazione
               </p>
             </Link>
-          </div>
-        </div>
-        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial={{ y: "100vh", opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.6 }}
+          className="hidden lg:mt-0 lg:col-span-5 lg:flex"
+        >
           <img
             className="rounded-3xl"
             src="https://images.pexels.com/photos/5490263/pexels-photo-5490263.jpeg"
             alt="mockup"
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

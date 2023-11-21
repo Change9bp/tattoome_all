@@ -13,6 +13,7 @@
     "flowbite": "^2.0.0",
     "flowbite-react": "^0.6.4",
     "formik": "^2.4.5",
+    "framer-motion": "^10.16.5",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "nominatim-geocoder": "^0.1.4",

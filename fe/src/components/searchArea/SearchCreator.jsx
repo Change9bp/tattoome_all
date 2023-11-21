@@ -5,6 +5,7 @@ import { Formik, Field, Form } from "formik";
 import { city, region, styles } from "../../data/tabelleDropdown";
 import axios from "axios";
 import { GlobalProvider } from "../../context/getContext";
+import { motion } from "framer-motion";
 
 const SearchCreator = () => {
   const {
@@ -48,7 +49,7 @@ const SearchCreator = () => {
   }, [listCreator]);
 
   return (
-    <div>
+    <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} className="px-4">
       <Formik
         initialValues={{
           tattooStyle: [],
@@ -154,7 +155,7 @@ const SearchCreator = () => {
           </div>
         </Form>
       </Formik>
-    </div>
+    </motion.div>
   );
 };
 

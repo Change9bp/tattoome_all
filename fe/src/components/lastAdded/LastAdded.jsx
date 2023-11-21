@@ -17,7 +17,7 @@ const LastAdded = () => {
   }, [currentPage]);
 
   return (
-    <div className="max-w-screen-2xl mx-auto">
+    <div className="max-w-screen-2xl px-4 mx-auto">
       {alert && (
         <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
           {alert}

@@ -1,6 +1,6 @@
 const validator = require("validator");
 
-const validatorTattooPost = (req, req, next) => {
+const validatorTattooPost = (req, res, next) => {
   const errors = [];
 
   const { title, content, cover, tattooStyle } = req.body;
