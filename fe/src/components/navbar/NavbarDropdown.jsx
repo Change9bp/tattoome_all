@@ -27,8 +27,8 @@ const NavbarDropdown = () => {
               rounded
               size="lg"
             />
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              Tattoome
+            <span className=" ml-2 self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+              TattooMe
             </span>
           </Navbar.Brand>
         </Link>

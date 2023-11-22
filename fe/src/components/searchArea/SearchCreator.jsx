@@ -73,7 +73,7 @@ const SearchCreator = () => {
         }}
       >
         <Form className="border-solid border border-slate-500 py-10 px-20 max-w-screen-xl mx-auto rounded-3xl">
-          <div className=" grid grid-cols-3 gap-16">
+          <div className="grid-cols-3 grid-flow-col gap-16 flex flex-col justify-center md:flex-row w-full">
             <div className="block">
               {alert && (
                 <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">

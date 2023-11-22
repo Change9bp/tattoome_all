@@ -40,11 +40,11 @@ const Home = () => {
         ) : null}
         <ShowListOfCard />
       </div>
-      <h2 className="max-w-screen-2xl mx-auto px-4 text-xl md:text-2xl lg:text-4xl font-extrabold">
+      <h2 className="max-w-screen-2xl mx-auto px-4 mt-14 text-xl md:text-2xl lg:text-4xl font-extrabold">
         Ultimi aggiunti dalla community
       </h2>
       <LastAdded />
-      <h2 className="max-w-screen-2xl mx-auto px-4 pt-8 text-xl md:text-2xl lg:text-4xl font-extrabold">
+      <h2 className="max-w-screen-2xl mx-auto px-4 mt-14 text-xl md:text-2xl lg:text-4xl font-extrabold">
         Ultimi creator registrati alla community
       </h2>
       <LastRegistered creatorList={creatorList} />

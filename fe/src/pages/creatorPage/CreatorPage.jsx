@@ -20,6 +20,7 @@ const CreatorPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     addViews();
   }, []);
 
@@ -110,7 +111,7 @@ const CreatorPage = () => {
           </Button>
         )}
       </Button.Group>
-      <div className="flex items-center justify-center py-4 md:py-8 flex-wrap">
+      <div className="flex items-center justify-center py-4  flex-wrap">
         <button
           onClick={() => {
             booking && setBooking(false);
@@ -119,9 +120,9 @@ const CreatorPage = () => {
           type="button"
           className={`${
             portfolio
-              ? "border border-blue-600 bg-blue-700 text-white"
+              ? "border border-blue-600 bg-slate-700 text-white"
               : "border border-white bg-white"
-          } text-gray-900 border border-white hover:border-gray-200 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3`}
+          } text-gray-900 hover:border-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-500 rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3`}
         >
           Portfolio
         </button>
@@ -133,9 +134,9 @@ const CreatorPage = () => {
           type="button"
           className={`${
             booking
-              ? "border border-blue-600 bg-blue-700 text-white"
+              ? "border border-blue-600 bg-slate-700 text-white"
               : "border border-white bg-white"
-          } text-gray-900 border border-white hover:border-gray-200 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3 `}
+          } text-gray-900 hover:border-slate-500 focus:ring-4 focus:outline-none focus:ring-slate-500 rounded-full text-base font-medium px-5 py-2.5 text-center mr-3 mb-3`}
         >
           Booking
         </button>

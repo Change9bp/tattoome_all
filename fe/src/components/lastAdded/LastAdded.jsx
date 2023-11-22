@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from "react";
 import CardBlog from "../cardBlog/CardBlog";
 import ResponsivePagination from "react-responsive-pagination";
 import { GlobalProvider } from "../../context/getContext";
-import "react-responsive-pagination/themes/classic.css";
+// import "react-responsive-pagination/themes/classic.css";
+import "./pagination.css";
 
 const LastAdded = () => {
   const { getTattooPosts, tattooPosts, currentPage, setCurrentPage, alert } =

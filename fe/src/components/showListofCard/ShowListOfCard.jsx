@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { GlobalProvider } from "../../context/getContext";
 import CardUserCreator from "../cardUserCreator/CardUserCreator";
 import CardBlog from "../cardBlog/CardBlog";
-import { motion } from "framer-motion";
 
 const ShowListOfCard = () => {
   const { filteredCreator, filteredPost, selected } =

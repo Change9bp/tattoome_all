@@ -17,6 +17,8 @@ const GlobalContext = ({ children }) => {
   const [filteredCreator, setFilteredCreator] = useState([]);
   const [alert, setAlert] = useState("");
   const [dataUser, setDataUser] = useState(null);
+  const [calendar, setCalendar] = useState([]);
+  const [calendarPosted, setCalendarPosted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(4);
 
@@ -257,6 +259,71 @@ const GlobalContext = ({ children }) => {
     }
   };
 
+  //CHIAMATA PER OTTENERE EVENTI CALENDAR PER ID
+
+  const getCalendar = async (creatorId) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/calendar/${creatorId}`,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
+      );
+      setCalendar(response.data.calendar);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  //CALENDAR POST
+
+  const postCalendar = async (finalBody) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/calendar`,
+        finalBody,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
+      );
+      setCalendarPosted(!calendarPosted);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  //CALENDAR PATCH
+
+  const patchCalendar = async (finalBody) => {
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/calendar`,
+        finalBody,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
+      );
+      if (response.status === 200 && response.statusText === "OK") {
+        setAlert("Complimenti sei diventato un CREATOR!");
+        setTimeout(() => {
+          setAlert("");
+        }, 3000);
+      }
+    } catch (error) {
+      console.log(error.response);
+      setAlert("Errore nel caricamento dei dati riprova più tardi");
+      setTimeout(() => {
+        setAlert("");
+      }, 3000);
+    }
+  };
+
   return (
     <GlobalProvider.Provider
       value={{
@@ -294,6 +361,13 @@ const GlobalContext = ({ children }) => {
         setFilteredCreator,
         tattooPostsForCreator,
         delUser,
+        calendar,
+        setCalendar,
+        getCalendar,
+        calendarPosted,
+        setCalendarPosted,
+        postCalendar,
+        patchCalendar,
       }}
     >
       {children}

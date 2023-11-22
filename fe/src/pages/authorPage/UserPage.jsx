@@ -21,7 +21,10 @@ const UserPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dataUser && getInfoSingleCreator(dataUser.id);
+    window.scrollTo(0, 0);
+    if (dataUser) {
+      getInfoSingleCreator(dataUser.id);
+    }
   }, [dataUser]);
 
   return (
