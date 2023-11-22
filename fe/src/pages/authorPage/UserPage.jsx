@@ -21,8 +21,8 @@ const UserPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getInfoSingleCreator(dataUser.id);
-  }, []);
+    dataUser && getInfoSingleCreator(dataUser.id);
+  }, [dataUser]);
 
   return (
     <>
@@ -56,8 +56,8 @@ const UserPage = () => {
 
                 <Button
                   onClick={() => {
-                    setModify(!modify);
-                    creator && setCreator(!creator);
+                    modify && setModify(!modify);
+                    setCreator(!creator);
                   }}
                   className="w-52 mt-2 text-white bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 hover:bg-violet-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center"
                 >
@@ -120,7 +120,7 @@ const UserPage = () => {
               <p className="text-center text-md font-semibold dark:text-white mb-2">
                 Like
               </p>
-              <p>{likes.length}</p>
+              <p> {likes && likes.length}</p>
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@ const UserPage = () => {
             <h2 className="my-6 text-2xl font-bold text-gray-800 text-center">
               Completa la registrazione per diventare CREATOR
             </h2>
-            <FormBecomeCreator />{" "}
+            <FormBecomeCreator />
           </div>
         )}
       </main>

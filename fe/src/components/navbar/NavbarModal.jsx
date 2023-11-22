@@ -25,7 +25,13 @@ const NavbarModal = ({ author, _id }) => {
   const likeIt = async () => {
     try {
       const response = await axios.patch(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${_id}/like/${dataUser.id}`
+        `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${_id}/like/${dataUser.id}`,
+        {},
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       ottieniILike();
     } catch (error) {
@@ -36,7 +42,12 @@ const NavbarModal = ({ author, _id }) => {
   //ottengo array like
   const ottieniILike = async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${_id}`
+      `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${_id}`,
+      {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+        },
+      }
     );
     setNewDataPost(response.data.post.likes);
     console.log("cosa ho salvato in new data post", response.data.post.likes);
@@ -52,7 +63,6 @@ const NavbarModal = ({ author, _id }) => {
               src={author.avatar}
               alt="avatar"
             />
-            <span class="top-0 left-16 absolute  w-4 h-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
           </div>
           <div className="space-y-1 font-medium dark:text-white">
             <div>

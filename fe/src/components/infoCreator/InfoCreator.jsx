@@ -38,11 +38,13 @@ const InfoCreator = ({ id }) => {
 
   return (
     <div className="mt-8 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-screen-lg mx-auto flex flex-col bg-white border border-gray-200 rounded-3xl shadow lg:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-      <img
-        className="object-cover w-full lg:w-1/2 rounded-t-3xl h-full lg:rounded-l-3xl lg:rounded-r-none"
-        src={avatar}
-        alt="CREATOR IMAGE"
-      />
+      <div style={{ height: "750px" }} className="lg:w-1/2">
+        <img
+          className="object-cover w-full h-full rounded-t-3xl  lg:rounded-l-3xl lg:rounded-r-none"
+          src={avatar}
+          alt="CREATOR IMAGE"
+        />
+      </div>
 
       <div className="bg-gray-50 rounded-3xl flex flex-col w-full lg:w-1/2 justify-between p-4 leading-normal">
         <h2 class="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white">
@@ -51,10 +53,10 @@ const InfoCreator = ({ id }) => {
             artista
           </mark>
         </h2>
-        <p className="mb-3 text-center text-4xl font-normal text-slate-700 dark:text-gray-400">
+        <p className="mb-3 my-10 text-center text-4xl font-normal text-slate-700 dark:text-gray-400">
           {name} {lastName}
         </p>
-        <div className="m-4 grid grid-cols-3">
+        <div className="mx-4 my-10 grid grid-cols-3">
           <div className="flex flex-col items-center truncate">
             <p className="mb-3 font-bold text-gray-700 dark:text-gray-400">
               Nazione

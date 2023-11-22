@@ -41,11 +41,12 @@ const GlobalContext = ({ children }) => {
   const getCreatorList = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/onlyCreator` /*, {
-      headers: {
-        Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-      },
-    }*/
+        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/onlyCreator`,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       console.log(response, "lista creator");
       setCreatorList(response.data.userCreators);
@@ -63,11 +64,12 @@ const GlobalContext = ({ children }) => {
   const getInfoSingleCreator = async (id) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}` /*, {
-      headers: {
-        Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-      },
-    }*/
+        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}`,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       console.log(response.data.userCreator, "single creator");
       setInfoSingleCreator(response.data.userCreator);
@@ -81,12 +83,12 @@ const GlobalContext = ({ children }) => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator`,
-        values
-        /*{
-        headers: {
-          Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-        },
-      }*/
+        values,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       console.log(response);
       if (response.status === 200 && response.statusText === "OK") {
@@ -139,12 +141,12 @@ const GlobalContext = ({ children }) => {
     try {
       const response = await axios.patch(
         `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${dataUser.id}`,
-        finalBody
-        // {
-        //   headers: {
-        //     Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-        //   },
-        // }
+        finalBody,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       if (response.status === 200 && response.statusText === "OK") {
         setAlert("Complimenti sei diventato un CREATOR!");
@@ -166,12 +168,12 @@ const GlobalContext = ({ children }) => {
   const getTattooPosts = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost?page=${currentPage}&pageSize=${pageSize}`
-        /*, {
+        `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost?page=${currentPage}&pageSize=${pageSize}`,
+        {
           headers: {
             Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
           },
-        }*/
+        }
       );
 
       setTattooPosts(response.data);
@@ -188,12 +190,12 @@ const GlobalContext = ({ children }) => {
   const getTattooPostsForCreator = async (id) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${id}/creator`
-        /*, {
+        `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${id}/creator`,
+        {
           headers: {
             Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
           },
-        }*/
+        }
       );
 
       setTattooPostsForCreator(response.data.findPost);
@@ -218,12 +220,12 @@ const GlobalContext = ({ children }) => {
     if (confirmDel) {
       try {
         const response = await axios.delete(
-          `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${postId}`
-          // {
-          //   headers: {
-          //     Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-          //   },
-          // }
+          `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${postId}`,
+          {
+            headers: {
+              Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+            },
+          }
         );
         console.log(response);
         //   navigate("/home");

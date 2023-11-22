@@ -28,12 +28,12 @@ const ModifyPost = ({ _id, title, content, tattooStyle }) => {
     try {
       const response = await axios.patch(
         `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/${_id}`,
-        values.cover ? finalBody : values
-        // {
-        //   headers: {
-        //     Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-        //   },
-        // }
+        values.cover ? finalBody : values,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       console.log("modify post", response);
       if (response.status === 200 && response.statusText === "OK") {

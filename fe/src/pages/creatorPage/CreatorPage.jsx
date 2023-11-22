@@ -36,7 +36,13 @@ const CreatorPage = () => {
   const addViews = async () => {
     try {
       const response = await axios.patch(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}/views`
+        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}/views`,
+        {},
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       console.log();
     } catch (error) {
@@ -45,7 +51,12 @@ const CreatorPage = () => {
   };
   const ottieniILike = async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}`
+      `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}`,
+      {
+        headers: {
+          Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+        },
+      }
     );
     setNewDataCreator(response.data.userCreator.likes);
     console.log(
@@ -57,7 +68,13 @@ const CreatorPage = () => {
   const likeIt = async () => {
     try {
       const response = await axios.patch(
-        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}/like/${dataUser.id}`
+        `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${id}/like/${dataUser.id}`,
+        {},
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       ottieniILike();
     } catch (error) {

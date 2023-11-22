@@ -26,12 +26,12 @@ const FormNewPost = () => {
         };
         const response = await axios.post(
           `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost`,
-          finalBody
-          /*{
-        headers: {
-          Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-        },
-      }*/
+          finalBody,
+          {
+            headers: {
+              Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+            },
+          }
         );
         console.log(response);
         if (response.status === 200 && response.statusText === "OK") {

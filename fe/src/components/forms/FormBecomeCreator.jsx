@@ -37,12 +37,12 @@ const FormBecomeCreator = () => {
         creatorUpdate(finalBody);
       }}
     >
-      {alert && (
-        <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
-          {alert}
-        </h5>
-      )}
       <Form className="flex max-w-lg flex-col gap-3 mx-auto">
+        {alert && (
+          <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
+            {alert}
+          </h5>
+        )}
         <div className="block">
           <Label
             htmlFor="tattooStyle"

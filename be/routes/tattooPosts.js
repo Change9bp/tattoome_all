@@ -103,7 +103,7 @@ tattooPost.get("/tattooPost/:_id", verifyToken, async (req, res) => {
 //GET CON ID DEL CREATOR
 
 tattooPost.get(
-  "/tattooPost/:idCrear/creator",
+  "/tattooPost/:idCreator/creator",
   verifyToken,
   async (req, res) => {
     const { idCreator } = req.params;

@@ -17,7 +17,12 @@ const SearchPost = () => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_BASE_URL}/tattooPost/search`,
-        finalBody
+        finalBody,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
       console.log("la res della ricerca per post", response);
       setListPost(response.data.results);

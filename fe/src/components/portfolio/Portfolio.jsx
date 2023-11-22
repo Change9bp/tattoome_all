@@ -16,6 +16,7 @@ const Portfolio = ({ id }) => {
     useContext(GlobalProvider);
 
   useEffect(() => {
+    console.log("è questo l'ID", id);
     getTattooPostsForCreator(id);
   }, []);
 

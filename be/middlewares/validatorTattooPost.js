@@ -8,7 +8,7 @@ const validatorTattooPost = (req, res, next) => {
   /* #region  SEZIONE FUNZIONE DI VERIFICA ESTENSIONE */
   const isImageURL = (cover) => {
     const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
-    if (!validator.isURL(cover)) {
+    if (typeof cover !== "string" || !validator.isURL(cover)) {
       return false;
     }
     const fileExtension = cover.substring(cover.lastIndexOf("."));
@@ -16,11 +16,11 @@ const validatorTattooPost = (req, res, next) => {
   };
   /* #endregion */
 
-  if (title && !validator.isString(title)) {
+  if (title && typeof title !== "string") {
     errors.push("Title must be a non-empty string");
   }
 
-  if (content && !validator.isString(content)) {
+  if (content && typeof content !== "string") {
     errors.push("Content must be a non-empty string");
   }
 
@@ -28,8 +28,8 @@ const validatorTattooPost = (req, res, next) => {
     errors.push("Cover must contain a correct image format");
   }
 
-  if (tattooStyle.length > 0 && !Array.isArray(avatar)) {
-    errors.push("tattooStyle must be an array with data");
+  if (tattooStyle && tattooStyle.length > 0 && !Array.isArray(tattooStyle)) {
+    errors.push("Tattoo styles must be an array with data");
   }
 
   if (errors.length > 0) {

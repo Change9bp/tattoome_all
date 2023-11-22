@@ -7,6 +7,7 @@ import { GlobalProvider } from "../../context/getContext";
 const NavbarDropdown = () => {
   const { infoSingleCreator } = useContext(GlobalProvider);
   const { role, name, lastName, avatar } = infoSingleCreator;
+  const { dataUser } = useContext(GlobalProvider);
 
   const Navigate = useNavigate();
 
@@ -45,7 +46,7 @@ const NavbarDropdown = () => {
               <div class="relative w-10 h-10">
                 <img
                   class="w-full h-full rounded-full object-cover"
-                  src={avatar}
+                  src={dataUser && dataUser.avatar}
                   alt="avatar"
                 />
                 <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>

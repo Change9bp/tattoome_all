@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Jumbotron = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
-      <div className="rounded-3xl lg:grid max-w-screen-xl px-4 py-4 mx-auto gap-0 lg:py-8 lg:grid-cols-12 ">
+      <div className="overflow-hidden rounded-3xl lg:grid max-w-screen-xl px-4 py-4 mx-auto gap-0 lg:py-8 lg:grid-cols-12 ">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

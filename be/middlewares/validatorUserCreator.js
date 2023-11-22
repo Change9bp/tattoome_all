@@ -30,42 +30,41 @@ const validatorUserCreator = (req, res, next) => {
   /* #endregion */
 
   /* #region  SEZIONE DI VALIDAZIONE CONTENUTO */
-  if (name && !validator.isString(name)) {
+  if (name && typeof name !== "string") {
     errors.push("Name must be a non-empty string");
   }
-  if (lastName && !validator.isString(lastName)) {
+  if (lastName && typeof lastName !== "string") {
     errors.push("Last name must be a non-empty string");
   }
-  if (password && !validator.isString(password)) {
+  if (password && typeof password !== "string") {
     errors.push("Password must be a non-empty string");
   }
-  if (email && (!validator.isString(email) || !validator.isEmail(email))) {
+  if (email && !validator.isEmail(email)) {
     errors.push("Email must be a valid email address");
   }
-
-  if (alias && !validator.isString(alias)) {
-    errors.push("alias must be a non-empty string");
+  if (alias && typeof alias !== "string") {
+    errors.push("Alias must be a non-empty string");
   }
 
   if (avatar && !isImageURL(avatar)) {
     errors.push("Avatar must contain a correct image format");
   }
 
-  if (tattooStyle.length > 0 && !Array.isArray(avatar)) {
-    errors.push("tattooStyle must be an array with data");
+  if (tattooStyle && !Array.isArray(tattooStyle)) {
+    errors.push("Tattoo styles must be an array with data");
   }
 
-  if (nation && !validator.isString(nation)) {
-    errors.push("nation must be a non-empty string");
+  if (nation && typeof nation !== "string") {
+    errors.push("Nation must be a non-empty string");
   }
-  if (region && !validator.isString(region)) {
-    errors.push("region must be a non-empty string");
+  if (region && typeof region !== "string") {
+    errors.push("Region must be a non-empty string");
   }
-  if (city && !validator.isString(city)) {
-    errors.push("city must be a non-empty string");
+  if (city && typeof city !== "string") {
+    errors.push("City must be a non-empty string");
   }
-  if (address && !validator.isString(address)) {
-    errors.push("address must be a non-empty string");
+  if (address && typeof address !== "string") {
+    errors.push("Address must be a non-empty string");
   }
 
   if (errors.length > 0) {

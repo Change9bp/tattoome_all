@@ -6,7 +6,8 @@ import { GlobalProvider } from "../../context/getContext";
 import axios from "axios";
 
 const FormUserProfile = () => {
-  const { uploadFileCloudinary, dataUser } = useContext(GlobalProvider);
+  const { uploadFileCloudinary, dataUser, alert, setAlert } =
+    useContext(GlobalProvider);
 
   const userCreatorUpdate = async (values) => {
     let finalBody = {};
@@ -38,13 +39,20 @@ const FormUserProfile = () => {
       }
       const response = await axios.patch(
         `${process.env.REACT_APP_SERVER_BASE_URL}/userCreator/${dataUser.id}`,
-        finalBody
-        // {
-        //   headers: {
-        //     Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
-        //   },
-        // }
+        finalBody,
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("loggedInUser")),
+          },
+        }
       );
+      if (response.status === 200 && response.statusText === "OK") {
+        setAlert("Nuovi dati inviati correttamente.");
+        setTimeout(() => {
+          setAlert("");
+          window.location.reload();
+        }, 3000);
+      }
       return response;
     } catch (error) {
       console.log(error.response);
@@ -91,16 +99,16 @@ const FormUserProfile = () => {
         ),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        console.log("valori", values);
         userCreatorUpdate(values);
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
       }}
     >
       {({ setFieldValue }) => (
         <Form className="flex max-w-lg flex-col gap-3 mx-auto">
+          {alert && (
+            <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
+              {alert}
+            </h5>
+          )}
           <h3 className="text-center text-md font-semibold dark:text-white">
             Scegli la tua immagine profilo
           </h3>
