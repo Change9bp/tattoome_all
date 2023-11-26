@@ -142,8 +142,6 @@ userCreator.post(
         };
       }
 
-      console.log("la mia req", req.body);
-      console.log("la mia req", query);
       // Esegui la query nel database
       const results = await UserCreatorModel.find(query);
 
@@ -206,8 +204,6 @@ userCreator.patch(
 
     const userExists = await UserCreatorModel.findById(_id);
 
-    console.log("esiste l'autore??", userExists);
-
     if (!userExists) {
       return res.status(404).send({
         statusCode: 404,
@@ -252,7 +248,6 @@ userCreator.patch(
   "/userCreator/:creatorId/like/:likedUserId",
   verifyToken,
   async (req, res) => {
-    console.log("Request received");
     const { creatorId, likedUserId } = req.params;
 
     const userExists = await UserCreatorModel.findById(likedUserId);
@@ -265,7 +260,6 @@ userCreator.patch(
     }
 
     const creator = await UserCreatorModel.findById(creatorId);
-    console.log("ho trovato l'i del post?", creator);
 
     if (!creator) {
       return res.status(404).send({
@@ -278,9 +272,6 @@ userCreator.patch(
       const userAlreadyLiked = creator.likes.some(
         (like) => like.user.toString() === likedUserId.toString()
       );
-      console.log("l'iddell'utente c'è?", likedUserId);
-      console.log("l'iddell'utente c'è?", likedUserId);
-      console.log("il like c'è?", userAlreadyLiked);
 
       let updatedCreator;
 
@@ -352,7 +343,6 @@ userCreator.patch(
 
 userCreator.delete("/userCreator/:_id", verifyToken, async (req, res) => {
   const { _id } = req.params;
-  console.log(_id);
   try {
     const userCreatorToDelete = await UserCreatorModel.findByIdAndDelete(_id);
 

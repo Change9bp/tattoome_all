@@ -10,10 +10,18 @@ import FormBecomeCreator from "../../components/forms/FormBecomeCreator";
 import { GlobalProvider } from "../../context/getContext";
 import FooterGlobal from "../../components/footer/FooterGlobal";
 import { useNavigate } from "react-router-dom";
+import CalendarInputCreator from "../../components/calendar/CalendarInputCreator";
+import Calendar from "../../components/calendar/Calendar";
 
 const UserPage = () => {
-  const { infoSingleCreator, getInfoSingleCreator, dataUser, alert, delUser } =
-    useContext(GlobalProvider);
+  const {
+    infoSingleCreator,
+    getInfoSingleCreator,
+    alert,
+    delUser,
+    calendar,
+    getCalendar,
+  } = useContext(GlobalProvider);
   const { name, lastName, avatar, role, views, likes } = infoSingleCreator;
   const [modify, setModify] = useState(false);
   const [creator, setCreator] = useState(false);
@@ -22,10 +30,10 @@ const UserPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (dataUser) {
-      getInfoSingleCreator(dataUser.id);
-    }
-  }, [dataUser]);
+    const userData = JSON.parse(localStorage.getItem("userDataDetails"));
+    getInfoSingleCreator(userData.id);
+    getCalendar(userData.id);
+  }, []);
 
   return (
     <>
@@ -126,6 +134,11 @@ const UserPage = () => {
               <p> {likes && likes.length}</p>
             </div>
           </div>
+        </div>
+        <div className="px-4 max-w-screen-xl mx-auto grid grid-cols-2 gap-8">
+          {" "}
+          <CalendarInputCreator {...calendar} />
+          <Calendar {...calendar} />
         </div>
         {!modify ? null : <FormUserProfile />}
         {!creator ? null : (

@@ -43,7 +43,9 @@ const PostDetails = ({ ...singlePost }) => {
         Tattoo style:
         <small className="text-2xl ml-2 font-light text-gray-500 dark:text-gray-400">
           {tattooStyle.map((style) => (
-            <span className="ml-2">{style.value} -</span>
+            <span key={style.value} className="ml-2">
+              {style.value} -
+            </span>
           ))}
         </small>
       </p>

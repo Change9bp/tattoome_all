@@ -5,6 +5,7 @@ const path = require("path");
 const userCreatorRoute = require("./routes/userCreator");
 const tattooPostRoute = require("./routes/tattooPosts");
 const loginRoute = require("./routes/login");
+const calendarRoute = require("./routes/calendar");
 
 require("dotenv").config();
 
@@ -18,6 +19,7 @@ app.use(cors());
 app.use("/", userCreatorRoute);
 app.use("/", tattooPostRoute);
 app.use("/", loginRoute);
+app.use("/", calendarRoute);
 
 mongoose.connect(process.env.URL_SERVER_DB, {
   useNewUrlParser: true,

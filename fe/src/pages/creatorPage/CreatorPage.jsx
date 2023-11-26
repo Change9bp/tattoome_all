@@ -12,7 +12,7 @@ import axios from "axios";
 import { GlobalProvider } from "../../context/getContext";
 
 const CreatorPage = () => {
-  const { dataUser } = useContext(GlobalProvider);
+  const { dataUser, getCalendar, calendar } = useContext(GlobalProvider);
   const [portfolio, setPortfolio] = useState(false);
   const [booking, setBooking] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -21,6 +21,8 @@ const CreatorPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const userData = JSON.parse(localStorage.getItem("userDataDetails"));
+    getCalendar(userData.id);
     addViews();
   }, []);
 
@@ -142,7 +144,11 @@ const CreatorPage = () => {
         </button>
       </div>
       {portfolio ? <Portfolio id={id} /> : null}
-      {booking ? <Calendar /> : null}
+      {booking ? (
+        <div className="max-w-5xl mx-auto max-w">
+          <Calendar {...calendar} />
+        </div>
+      ) : null}
       <FooterGlobal />
     </>
   );

@@ -24,7 +24,7 @@ const ProtectedRoutes = () => {
       localStorage.setItem("userDataDetails", JSON.stringify(auth));
 
       // Aggiorna lo stato con i dati decodificati
-      setDataUser(auth);
+      await setDataUser(auth);
     };
 
     fetchData();

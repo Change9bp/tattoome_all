@@ -47,7 +47,6 @@ tattooPost.post(
 //GET con pagination
 tattooPost.get("/tattooPost", verifyToken, async (req, res) => {
   const { page, pageSize } = req.query;
-  console.log("page", page, "pagesize", pageSize);
   const posts = await PostModel.find()
     .populate({
       path: "author",
@@ -250,7 +249,6 @@ tattooPost.patch(
   verifyToken,
   validatorTattooPost,
   async (req, res) => {
-    console.log("Request received");
     const { postId, likedUserId } = req.params;
 
     const userExists = await UserCreatorModel.findById(likedUserId);
@@ -263,7 +261,6 @@ tattooPost.patch(
     }
 
     const post = await PostModel.findById(postId);
-    console.log("ho trovato l'i del post?", post);
 
     if (!post) {
       return res.status(404).send({
@@ -276,10 +273,6 @@ tattooPost.patch(
       const userAlreadyLiked = post.likes.some(
         (like) => like.user.toString() === likedUserId.toString()
       );
-      console.log("l'iddell'utente c'è?", likedUserId);
-      console.log("l'iddell'utente c'è?", likedUserId);
-      console.log("il like c'è?", userAlreadyLiked);
-
       let updatedPost;
 
       // Aggiungi "mi piace" solo se l'utente corrente non ha già messo "mi piace" togliolo se lo ha già messo

@@ -272,6 +272,7 @@ const GlobalContext = ({ children }) => {
         }
       );
       setCalendar(response.data.calendar);
+      console.log("la response del mio calendar", response.data.calendar);
     } catch (error) {
       console.log(error.response);
     }
@@ -291,6 +292,8 @@ const GlobalContext = ({ children }) => {
         }
       );
       setCalendarPosted(!calendarPosted);
+      setCalendar(response.data.calendar);
+      console.log("response della post", response.data.calendar);
     } catch (error) {
       console.log(error.response);
     }
@@ -309,6 +312,8 @@ const GlobalContext = ({ children }) => {
           },
         }
       );
+      setCalendar(response.data.calendar);
+      console.log("response della patch", response.data.calendar);
       if (response.status === 200 && response.statusText === "OK") {
         setAlert("Complimenti sei diventato un CREATOR!");
         setTimeout(() => {

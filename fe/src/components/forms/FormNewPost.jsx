@@ -53,7 +53,7 @@ const FormNewPost = () => {
 
   return (
     <div className="px-4">
-      <div class="my-4 rounded-3xl h-72 max-w-screen-2xl mx-auto bg-center bg-no-repeat bg-[url('https://images.pexels.com/photos/6593354/pexels-photo-6593354.jpeg?auto=compress&cs=tinysrgb&w=1600')] bg-gray-700 bg-blend-multiply flex flex-col justify-center items-center">
+      <div className="my-4 rounded-3xl h-72 max-w-screen-2xl mx-auto bg-center bg-no-repeat bg-[url('https://images.pexels.com/photos/6593354/pexels-photo-6593354.jpeg?auto=compress&cs=tinysrgb&w=1600')] bg-gray-700 bg-blend-multiply flex flex-col justify-center items-center">
         <h1 className="mb-4 mx-4 text-3xl font-extrabold text-white md:text-5xl lg:text-6xl">
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
             Aggiungi un POST
@@ -66,11 +66,11 @@ const FormNewPost = () => {
         </p>
       </div>
 
-      <h3 class="mb-4 text-2xl text-center font-bold dark:text-white">
+      <h3 className="mb-4 text-2xl text-center font-bold dark:text-white">
         Dai un TITOLO, aggiungi una FOTO, scrivi il TUO CONTENUTO
       </h3>
       {alert && (
-        <h5 class="animate-pulse text-center text-green-600 text-xl font-bold my-6">
+        <h5 className="animate-pulse text-center text-green-600 text-xl font-bold my-6">
           {alert}
         </h5>
       )}
@@ -141,7 +141,7 @@ const FormNewPost = () => {
                 name="title"
                 type="text"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeHolder="Inserisci il titolo del Post"
+                placeholder="Inserisci il titolo del Post"
               />
               <div className="text-red-500 text-sm mt-1">
                 <ErrorMessage name="title" />
@@ -175,7 +175,7 @@ const FormNewPost = () => {
                 name="content"
                 as="textarea"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeHolder="Inserisci il contenuto del Post"
+                placeholder="Inserisci il contenuto del Post"
               />
               <div className="text-red-500 text-sm mt-1">
                 <ErrorMessage name="content" />
