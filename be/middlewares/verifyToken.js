@@ -19,7 +19,7 @@ module.exports = async function (req, res, next) {
     //decodifica all'inverso ed accetta due parametri il primo il token ed il secondo la stringa segreta di codifica
     const verified = jwt.verify(token, process.env.JWT_SECRET);
 
-    const userCreator = await userCreatorModel.findById(verified.id); //non funziona restituisce una query
+    const userCreator = await userCreatorModel.findById(verified.id);
 
     if (userCreator) {
       next();

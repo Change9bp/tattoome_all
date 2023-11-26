@@ -30,7 +30,7 @@ const UserPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const userData = JSON.parse(localStorage.getItem("userDataDetails"));
+    const userData = JSON.parse(sessionStorage.getItem("userDataDetails"));
     getInfoSingleCreator(userData.id);
     getCalendar(userData.id);
   }, []);

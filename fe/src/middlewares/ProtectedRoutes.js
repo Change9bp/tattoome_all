@@ -21,7 +21,7 @@ const ProtectedRoutes = () => {
       }
 
       // Decodifica il token e salva i dati decodificati nel localStorage
-      localStorage.setItem("userDataDetails", JSON.stringify(auth));
+      sessionStorage.setItem("userDataDetails", JSON.stringify(auth));
 
       // Aggiorna lo stato con i dati decodificati
       await setDataUser(auth);

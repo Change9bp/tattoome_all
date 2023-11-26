@@ -13,7 +13,7 @@ const NavbarDropdown = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("userDataDetails");
+    sessionStorage.removeItem("userDataDetails");
     Navigate("/");
   };
 

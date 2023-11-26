@@ -15,11 +15,6 @@ const CalendarInputCreator = ({ events }) => {
     calendarPosted,
   } = useContext(GlobalProvider);
 
-  // useEffect(() => {
-  //   const userData = JSON.parse(localStorage.getItem("userDataDetails"));
-  //   getCalendar(userData.id);
-  // }, []);
-
   return (
     <div className="flex justify-center items-center">
       <Formik
